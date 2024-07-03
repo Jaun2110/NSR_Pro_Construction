@@ -1,0 +1,115 @@
+.footer{
+    background-color: #2a2a2a;
+    height: 50px;
+    color: rgb(255 255 255 / 75%);
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#navbar-section{
+    background-color: #11005f; 
+}
+a.nav-link.active{
+    background-color: #c92aa1;
+}
+a.nav-link:hover{
+    text-decoration-line:underline;
+
+}
+
+.navbar-nav .nav-item .nav-link{
+    color:rgb(255, 255, 255) ;
+}
+.pet-images img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.card{
+    width: auto;
+    height: auto;
+}
+
+.card-body img{
+    width: 200px;
+    height: auto;
+}
+.card-body ul li{
+    list-style-type: none;
+}
+ul{
+    line-height: 2em;
+}
+h2{
+    padding: 5px 0 5px 0;
+}
+.breadcrumbHeading{
+    background-color: #d6d6d6;
+}
+nav.navbar{
+    padding-top: 0%;
+    padding-bottom: 0%;
+}
+h2.crumbHeading{
+    padding-bottom: 0%;
+    margin-bottom: 0%;
+}
+ol.breadcrumb{
+    padding: 0%;
+    margin-bottom: 0%;
+    margin-top: 1%;
+}
+
+.gradient-hr{
+height:2px;
+border:1px solid green ;
+background-image: linear-gradient(to right, #124831,#a89660);
+animation: moveGradient 3s linear infinite ;
+}
+
+/* animation of gradient hr */
+@keyframes moveGradient {
+    0% {
+        background-position: 0% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+.price{
+    color: red;
+}
+#Total{
+    color: #005f27;
+    border: none;
+    padding-top: 0 ;
+    padding-left: 0;
+}
+input#daysStayOvers,input#daysDailyVisits,input#daysTwiceADayVisits{
+    width: 160px;
+}
+
+#topScrollBtn{
+    
+    position: fixed;
+    display: none;
+    right: 30px; 
+    bottom: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+#topScrollBtn:hover{
+    background-color: #555;
+}
+body{
+    background-image: radial-gradient(circle at center center, transparent,rgb(255,255,255)),linear-gradient(309deg, rgba(90, 90, 90,0.05) 0%, rgba(90, 90, 90,0.05) 50%,rgba(206, 206, 206,0.05) 50%, rgba(206, 206, 206,0.05) 100%),linear-gradient(39deg, rgba(13, 13, 13,0.05) 0%, rgba(13, 13, 13,0.05) 50%,rgba(189, 189, 189,0.05) 50%, rgba(189, 189, 189,0.05) 100%),linear-gradient(144deg, rgba(249, 249, 249,0.05) 0%, rgba(249, 249, 249,0.05) 50%,rgba(111, 111, 111,0.05) 50%, rgba(111, 111, 111,0.05) 100%),linear-gradient(166deg, rgba(231, 231, 231,0.05) 0%, rgba(231, 231, 231,0.05) 50%,rgba(220, 220, 220,0.05) 50%, rgba(220, 220, 220,0.05) 100%),linear-gradient(212deg, rgba(80, 80, 80,0.05) 0%, rgba(80, 80, 80,0.05) 50%,rgba(243, 243, 243,0.05) 50%, rgba(243, 243, 243,0.05) 100%),radial-gradient(circle at center center, hsl(107,19%,100%),hsl(107,19%,100%));
+}
+a.dropdown-item:hover{
+   background-color:  #c92aa1;
+}

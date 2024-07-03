@@ -1,0 +1,157 @@
+        <script>
+            $(document).ready(function()
+            {
+                function getCount()
+                        {
+                            var textarea = $("#requests")
+                            var charLabel = $("#charCount")
+                            var characterCount = textarea.val().length
+                            charLabel.text(`${characterCount} of 300 characters`)
+                        }
+
+                        function calculateBill()
+                        {
+                            var daysDailyVisits = $("#daysDailyVisits").val()
+                            var daysTwiceADayVisits = $("#daysTwiceADayVisits").val()
+                            var daysStayOvers = $("#daysStayOvers").val()
+                            var dailyVisitTariff = 170
+                            var twiceADayVisitTariff = 220
+                            var stayOverTariff = 270
+                            var bill = (daysDailyVisits * dailyVisitTariff) + 
+                            (daysTwiceADayVisits * twiceADayVisitTariff) + (daysStayOvers * stayOverTariff)
+                            var billLabel = $(".Total").val(bill)
+                            
+                        }
+
+                        function validateDateRange()
+                        {
+                            var dateFrom =$("#dateFrom").val()
+                            var dateTo = $("#dateTo").val()
+                            var dateError = $("#dateError")
+                            if (dateTo < dateFrom){
+                                dateError.text("Date To can not be smaller than Date From!")
+                            }else{
+                                dateError.text("")
+                            }
+                        }
+                        // custom validation
+                        (() => {
+                        'use strict'
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        const forms = document.querySelectorAll('.needs-validation')
+
+                        // Loop over them and prevent submission
+                        Array.from(forms).forEach(form => {
+                            form.addEventListener('submit', event => {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+
+                            form.classList.add('was-validated')
+                            }, false)
+                        })
+                        })()
+
+                      // Function to show loader
+                        function showLoader() 
+                        {
+                            $(".buttonText").attr("hidden",true)
+                            $(".loader").removeAttr("hidden")
+
+                            $('.loader').show();
+                        }
+                        function hideLoader()
+                        {
+                            $('.loader').hide()
+                        }
+                        // showModal
+                        function showModal() 
+                        {
+                            $("#bookingModal").modal('show')
+                        }
+                        
+                        // function to handle form submission
+                        $('form').submit(function (e)
+                        {
+                            e.preventDefault();
+                            // perform form validation
+                            if(this.checkValidity()){
+                                showLoader() // show loader
+
+                                // make AJAX request to the server
+                                $.ajax({
+                                    url: $(this).attr('action'),
+                                    type: $(this).attr('method'),
+                                    data: $(this).serialize(),
+                                    success: function(response){
+                                        // if the request is successful hide the loader and show the modal
+                                        hideLoader()
+
+                                        if (response.success){
+                                            showModal()
+                                        }else {
+                                            alert('Booking failed. Please try again')
+                                        }
+                                    },
+                                    error: function(xhr,status,error){
+                                        // hide loader and show error message
+                                        hideLoader()
+                                        alert(`Error: ${error}`)
+                                    }
+                                })  
+                            } else{
+                                // If form validation fails, prevent submission and display validation messages
+                                this.classList.add('was-validated')
+                            }
+                                                                                                                
+                        })
+
+
+
+
+
+                //SCROLL BUTTON
+                let scrollBtn = $("#topScrollBtn")
+
+                function checkScroll()
+                {
+                        //  when user scrolls show button
+                        if ($(window).scrollTop() > 20){
+                        scrollBtn.fadeIn()
+                    }else{
+                        scrollBtn.hide()
+                    }
+                }
+                checkScroll() // run on page load to set state
+
+                //attach function to scroll event
+                $(window).scroll(function()
+                {
+                checkScroll()
+                })
+                // when button is clicked go to the top of the document
+                window.goToTop = function()
+                {
+                    $("html,body").animate({scrollTop: 0},"fast")
+                }
+                   
+            })
+            
+
+            
+        </script>
+        
+        
+        <div class="footer"  >
+            <p>
+                
+                Nothnagel Tech Solutions <i class="far fa-copyright"></i> <%= currentYear %>
+            </p>
+        </div>
+    </div>
+<!-- container div end -->
+
+</body>
+
+</html>
