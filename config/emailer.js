@@ -2,7 +2,7 @@ import env from "dotenv"
 import nodemailer from "nodemailer"
 env.config()
 
-console.log(process.env.EMAIL_PASSWORD);
+// console.log(process.env.EMAIL_PASSWORD);
 
 // Create a transporter using Gmail SMTP
 const transporter = nodemailer.createTransport({

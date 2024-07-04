@@ -7,6 +7,7 @@ import session from "express-session"
 import transporter from "./config/emailer.js"
 import path from "path"
 import { fileURLToPath } from 'url'; // Import fileURLToPath to convert import.meta.url to a path
+import { log } from "console"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Define __dirname using import.meta.url
 
@@ -76,6 +77,7 @@ app.get("/renovations",(req,res)=>{
 })
 
 app.post("/newServiceRequest",async(req,res)=>{
+    console.log(req.body)
     // save to db
  
   const first_name = req.body.firstname
@@ -85,12 +87,24 @@ app.post("/newServiceRequest",async(req,res)=>{
  const address = req.body.street
 const suburb = req.body.suburb
  const city = req.body.city
+//  checkbox selection
+const electricalService = req.body.electrical
+const maintananceService = req.body.maintanance
+const newDevelopmentsService = req.body.new_Developments
+const paintingService = req.body.painting
+const plumbingService = req.body.plumbing
+const renovationService = req.body.renovation
+
+
+
  const requests = req.body.requests
 
 // save data to db
    const insertData = await newServiceRequest(first_name,last_name,email,cell,address,suburb,city,)
 //   send email
-    const mail = await sendMail(first_name,last_name,email,cell,address,suburb,city,requests)
+    const mail = await sendMail(first_name,last_name,email,cell,address,suburb,city,
+        renovationService,plumbingService,paintingService,newDevelopmentsService,maintananceService,electricalService
+        ,requests)
   res.json({success: true})
 })
 
@@ -115,7 +129,9 @@ async function newServiceRequest(first_name,last_name,email,cell,address,suburb,
 }
 
 // email sending
-async function sendMail(first_name, last_name, email, cell, address, suburb, city, requests) {
+async function sendMail(first_name,last_name,email,cell,address,suburb,city,
+    renovationService,plumbingService,paintingService,newDevelopmentsService,maintananceService,electricalService
+    ,requests) {
     const info = await transporter.sendMail({
         from: '"Test Email" <jaunn21@gmail.com>',
         to: "jaunn21@gmail.com",
@@ -129,10 +145,10 @@ Cell: ${cell}
 Address: ${address}
 Suburb: ${suburb}
 City: ${city}
-
+Services Requested:${renovationService}, ${plumbingService}, ${paintingService}, ${newDevelopmentsService}, ${maintananceService}, ${electricalService}
 Notes on what needs to be done: ${requests}
 `,
-        html: `${first_name} ${last_name} has just placed a service request and needs to be contacted. 
+        html: `${first_name} ${last_name} has just placed a service request and needs to be contacted. <br>
 <b>Details:</b><br>
 <b>Firstname:</b> ${first_name}<br>
 <b>Lastname:</b> ${last_name}<br>
@@ -141,7 +157,7 @@ Notes on what needs to be done: ${requests}
 <b>Address:</b> ${address}<br>
 <b>Suburb:</b> ${suburb}<br>
 <b>City:</b> ${city}<br><br>
-
+<b>Services Requested:</b><br>${renovationService}, ${plumbingService}, ${paintingService}, ${newDevelopmentsService}, ${maintananceService}, ${electricalService} <br>
 <b>Special Requests:</b><br>
 ${requests}
 `

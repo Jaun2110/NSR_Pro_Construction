@@ -17,6 +17,7 @@ primary_region = 'jnb'
   ETHERIAL_PORT = "587"
   ETHEREAL_USER ="ramona.satterfield@ethereal.email"
   ETHERIAL_PASSWORD ="vt8zVYr3j4aCAMWVdZ"
+  
 
 [http_service]
   internal_port = 3000
