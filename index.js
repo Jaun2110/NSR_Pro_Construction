@@ -115,37 +115,40 @@ async function newServiceRequest(first_name,last_name,email,cell,address,suburb,
 }
 
 // email sending
-async function sendMail
-(first_name,last_name,email,cell,address,suburb,city,requests){
+async function sendMail(first_name, last_name, email, cell, address, suburb, city, requests) {
     const info = await transporter.sendMail({
-        from: '"test email"<ramona.satterfield@ethereal.email>',
+        from: '"Test Email" <jaunn21@gmail.com>',
         to: "jaunn21@gmail.com",
-        subject:"NEW BOOKING",
-        text:`${first_name} ${last_name} has just placed a booking end needs to be contacted. 
-        Details: Firstname: ${first_name}
-        Lastname: ${last_name}
-        Email address: ${email}
-        Cell: ${cell}
-        Address: ${address}
-        Suburb: ${suburb}
-        City: ${city}
-        
-        Notes on what needs to be done: ${requests}
-        `,
-        html: `${first_name} ${last_name} has just placed a booking end needs to be contacted. 
-        Details: Firstname: ${first_name}
-        Lastname: ${last_name}
-        Email address: ${email}
-        Cell: ${cell}
-        Address: ${address}
-        Suburb: ${suburb}
-        City: ${city}
-        Special Requests: ${requests}
-        `
-        
-    })
-    console.log("email sent")
+        subject:   `NEW Service request from ${first_name} ${last_name}`,
+        text: `${first_name} ${last_name} has just placed a service request and needs to be contacted. 
+Details:
+Firstname: ${first_name}
+Lastname: ${last_name}
+Email address: ${email}
+Cell: ${cell}
+Address: ${address}
+Suburb: ${suburb}
+City: ${city}
+
+Notes on what needs to be done: ${requests}
+`,
+        html: `${first_name} ${last_name} has just placed a service request and needs to be contacted. 
+<b>Details:</b><br>
+<b>Firstname:</b> ${first_name}<br>
+<b>Lastname:</b> ${last_name}<br>
+<b>Email address:</b> ${email}<br>
+<b>Cell:</b> ${cell}<br>
+<b>Address:</b> ${address}<br>
+<b>Suburb:</b> ${suburb}<br>
+<b>City:</b> ${city}<br><br>
+
+<b>Special Requests:</b><br>
+${requests}
+`
+    });
+    console.log("Email sent");
 }
+
 
 app.listen(PORT,'0.0.0.0', ()=>{
     console.log(`Server running on http://localhost:${PORT}`)
