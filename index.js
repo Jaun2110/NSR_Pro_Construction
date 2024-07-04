@@ -5,10 +5,20 @@ import supabase from "./config/supabaseClient.js"
 import passport from "passport"
 import session from "express-session"
 import transporter from "./config/emailer.js"
+import path from "path"
+import { fileURLToPath } from 'url'; // Import fileURLToPath to convert import.meta.url to a path
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Define __dirname using import.meta.url
+
+// initialize env variables
+env.config()
+// console.log(process.env)
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
+// Set the views directory
+app.set('views', path.join(__dirname, 'views'));
 // view engine
 app.set("view engine", "ejs")
 
@@ -31,13 +41,10 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-// initialize env variables
-env.config()
-
-
-
 
 // ROUTES
+// Add this route for testing environment variables
+
 app.get("/",(req,res)=>{
     // console.log(supabase)
     
