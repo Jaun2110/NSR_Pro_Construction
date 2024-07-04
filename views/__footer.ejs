@@ -1,13 +1,15 @@
         <script>
-            $(document).ready(function()
-            {
-                function getCount()
+            // function palaced outside oof document.ready to ensure global scope
+            function getCount()
                         {
                             var textarea = $("#requests")
                             var charLabel = $("#charCount")
                             var characterCount = textarea.val().length
                             charLabel.text(`${characterCount} of 300 characters`)
                         }
+            $(document).ready(function()
+            {
+                
 
                         function calculateBill()
                         {
