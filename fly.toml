@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'petsitter-project'
+app = 'nsr-pro-construction'
 primary_region = 'jnb'
 
 [build]
@@ -17,7 +17,8 @@ primary_region = 'jnb'
   ETHERIAL_PORT = "587"
   ETHEREAL_USER ="ramona.satterfield@ethereal.email"
   ETHERIAL_PASSWORD ="vt8zVYr3j4aCAMWVdZ"
-  
+  EMAIL_USER = 'jaunn21@gmail.com'
+  NODEMAILER_PASSWORD = 'gztb liau mryu oujq'
 
 [http_service]
   internal_port = 3000

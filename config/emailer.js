@@ -8,8 +8,8 @@ env.config()
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'jaunn21@gmail.com',  // Your Gmail email address
-        pass: 'gztb liau mryu oujq'  // Your Gmail password or App-Specific Password
+        user: process.env.EMAIL_USER,  // Your Gmail email address
+        pass: process.env.NODEMAILER_PASSWORD  // Your Gmail password or App-Specific Password
     }
 });
 

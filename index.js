@@ -135,7 +135,7 @@ async function sendMail(first_name,last_name,email,cell,address,suburb,city,
     const info = await transporter.sendMail({
         from: '"Test Email" <jaunn21@gmail.com>',
         to: "jaunn21@gmail.com",
-        subject:   `NEW Service request from ${first_name} ${last_name}`,
+        subject:   `New Service request from ${first_name} ${last_name}`,
         text: `${first_name} ${last_name} has just placed a service request and needs to be contacted. 
 Details:
 Firstname: ${first_name}
