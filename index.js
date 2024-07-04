@@ -70,7 +70,7 @@ app.get("/renovations",(req,res)=>{
 
 app.post("/newServiceRequest",async(req,res)=>{
     // save to db
-  const title = req.body.prefix
+ 
   const first_name = req.body.firstname
  const last_name = req.body.lastname
  const email = req.body.email
@@ -78,18 +78,12 @@ app.post("/newServiceRequest",async(req,res)=>{
  const address = req.body.street
 const suburb = req.body.suburb
  const city = req.body.city
-  const zip_code = req.body.zipcode
- const date_from = req.body.dateFrom
- const date_to = req.body.dateTo
-const total_bill = req.body.Total
  const requests = req.body.requests
- const days_daily_visits = req.body.daysDailyVisits
-const  days_twice_a_day_visits = req.body.daysTwiceADayVisits
- const days_stay_overs = req.body.daysStayOvers
+
 // save data to db
-   const insertData = await newServiceRequest(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs)
+   const insertData = await newServiceRequest(first_name,last_name,email,cell,address,suburb,city,)
 //   send email
-    const mail = await sendMail(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs)
+    const mail = await sendMail(first_name,last_name,email,cell,address,suburb,city,requests)
   res.json({success: true})
 })
 
@@ -103,10 +97,10 @@ function getYear(){
 }
 // supabase crud
 // add a request
-async function newServiceRequest(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs){
+async function newServiceRequest(first_name,last_name,email,cell,address,suburb,city,requests){
     const {data, error} = await supabase
-    .from('bookings')
-    .insert({title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs})
+    .from('service_requests')
+    .insert({first_name,last_name,email,cell,address,suburb,city,requests})
     if (error)
         {console.error("Booking insertion failed",error.message)}
     console.log("insertion complete",data)
@@ -115,8 +109,7 @@ async function newServiceRequest(title,first_name,last_name,email,cell,address,s
 
 // email sending
 async function sendMail
-(title,first_name,last_name,email,cell,address,suburb,
-city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs){
+(first_name,last_name,email,cell,address,suburb,city,requests){
     const info = await transporter.sendMail({
         from: '"test email"<ramona.satterfield@ethereal.email>',
         to: "jaunn21@gmail.com",
@@ -129,13 +122,8 @@ city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice
         Address: ${address}
         Suburb: ${suburb}
         City: ${city}
-        Date From: ${date_from}
-        Date To: ${date_to}
-        Daily visits: ${days_daily_visits}
-        Twice a day visits: ${days_twice_a_day_visits}
-        Stay Overs: ${days_stay_overs}
-        Special Requests: ${requests}
-        Bill Total: ${total_bill}
+        
+        Notes on what needs to be done: ${requests}
         `,
         html: `${first_name} ${last_name} has just placed a booking end needs to be contacted. 
         Details: Firstname: ${first_name}
@@ -145,13 +133,7 @@ city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice
         Address: ${address}
         Suburb: ${suburb}
         City: ${city}
-        Date From: ${date_from}
-        Date To: ${date_to}
-        Daily visits: ${days_daily_visits}
-        Twice a day visits: ${days_twice_a_day_visits}
-        Stay Overs: ${days_stay_overs}
         Special Requests: ${requests}
-        Bill Total: ${total_bill}
         `
         
     })
