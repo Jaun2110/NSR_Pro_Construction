@@ -43,12 +43,32 @@ app.get("/",(req,res)=>{
     
     res.render("homePage",{currentYear: getYear()})
 })
-app.get("/bookings",(req,res)=>{
-    
-    res.render("booking",{currentYear: getYear()})
+
+app.get("/electrical", (req, res)=> {
+    res.render("electrical", {currentYear: getYear()})
 })
 
-app.post("/newBooking",async(req,res)=>{
+app.get("/maintanance", (req, res)=> {
+    res.render("maintanance", {currentYear: getYear()})
+})
+
+app.get("/newDevelopments", (req, res)=> {
+    res.render("newDevelopments", {currentYear: getYear()})
+})
+
+app.get("/painting", (req, res)=> {
+    res.render("painting", {currentYear: getYear()})
+})
+
+app.get("/plumbing", (req, res)=> {
+    res.render("plumbing", {currentYear: getYear()})
+})
+
+app.get("/renovations",(req,res)=>{
+    res.render("renovations",{currentYear: getYear()})
+})
+
+app.post("/newServiceRequest",async(req,res)=>{
     // save to db
   const title = req.body.prefix
   const first_name = req.body.firstname
@@ -67,13 +87,11 @@ const total_bill = req.body.Total
 const  days_twice_a_day_visits = req.body.daysTwiceADayVisits
  const days_stay_overs = req.body.daysStayOvers
 // save data to db
-   const insertData = await newBooking(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs)
+   const insertData = await newServiceRequest(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs)
 //   send email
     const mail = await sendMail(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs)
   res.json({success: true})
 })
-
-
 
 // ROUTES END
 
@@ -84,8 +102,8 @@ function getYear(){
     return year
 }
 // supabase crud
-// add a booking
-async function newBooking(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs){
+// add a request
+async function newServiceRequest(title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs){
     const {data, error} = await supabase
     .from('bookings')
     .insert({title,first_name,last_name,email,cell,address,suburb,city,zip_code,date_from,date_to,total_bill,requests,days_daily_visits,days_twice_a_day_visits,days_stay_overs})
