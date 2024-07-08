@@ -160,10 +160,9 @@ color: white !important;
     border-radius: 20%;
 }
 /* admin portal link */
-/* a.nav-link.admin{
-    display: flex !important;
-    justify-content: end !important;
-} */
+ a.nav-link:hover{
+   background-color: #5e0017 ;
+} 
 /* @media (min-width: 991px) {
     .nav-link.admin {
       justify-content: end !important;

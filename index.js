@@ -9,6 +9,7 @@ import path from "path"
 import { fileURLToPath } from 'url'; // Import fileURLToPath to convert import.meta.url to a path
 import { log } from "console"
 import { name } from "ejs"
+import { fchmodSync } from "fs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Define __dirname using import.meta.url
 
@@ -108,7 +109,27 @@ const requests = req.body.notes|| " "
        , requests)
   res.json({success: true})
 })
+// admin portal login
+app.get("/admin_portal",async(req,res)=>{
+    res.render("admin_login",{currentYear:getYear()})
+})
 
+app.post("/login",async(req,res)=>{
+ const username = req.body.username
+ const password = req.body.password
+
+    let {data,error} = await supabase
+    .from('admin_users')
+    .select('*')
+    // filter the results where username = username entered
+    .eq('username',username)
+    
+
+
+   
+
+  
+})
 // ROUTES END
 
 // functions

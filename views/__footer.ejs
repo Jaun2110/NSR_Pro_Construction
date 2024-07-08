@@ -93,13 +93,13 @@
                                         if (response.success){
                                             showModal()
                                         }else {
-                                            alert('Booking failed. Please try again')
+                                            alert('Credentials incorrect. Please try again')
                                         }
                                     },
                                     error: function(xhr,status,error){
                                         // hide loader and show error message
                                         hideLoader()
-                                        alert(`Error: ${error}`)
+                                        alert(`Error: ${error.message}`)
                                     }
                                 })  
                             } else{
