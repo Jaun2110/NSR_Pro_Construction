@@ -8,6 +8,7 @@ import transporter from "./config/emailer.js"
 import path from "path"
 import { fileURLToPath } from 'url'; // Import fileURLToPath to convert import.meta.url to a path
 import { log } from "console"
+import { name } from "ejs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Define __dirname using import.meta.url
 
@@ -77,7 +78,7 @@ app.get("/renovations",(req,res)=>{
 })
 
 app.post("/newServiceRequest",async(req,res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     // save to db
  
   const first_name = req.body.firstname
@@ -88,23 +89,23 @@ app.post("/newServiceRequest",async(req,res)=>{
 const suburb = req.body.suburb
  const city = req.body.city
 //  checkbox selection
-const electricalService = req.body.electrical
-const maintananceService = req.body.maintanance
-const newDevelopmentsService = req.body.new_Developments
-const paintingService = req.body.painting
-const plumbingService = req.body.plumbing
-const renovationService = req.body.renovation
-
-
-
- const requests = req.body.requests
+const electricalService = req.body.electrical || " "
+const maintananceService = req.body.maintanance|| " "
+// value from frontend successfull
+const newDevelopmentsService = req.body.new_Developments || " "
+const paintingService = req.body.painting || " "
+const plumbingService = req.body.plumbing || " "
+const renovationService = req.body.renovations || " "
+const requests = req.body.notes|| " "
 
 // save data to db
-   const insertData = await newServiceRequest(first_name,last_name,email,cell,address,suburb,city,)
+   const insertData = await newServiceRequest(first_name,last_name,email,cell,address,suburb,city
+    ,requests)
 //   send email
     const mail = await sendMail(first_name,last_name,email,cell,address,suburb,city,
-        renovationService,plumbingService,paintingService,newDevelopmentsService,maintananceService,electricalService
-        ,requests)
+        // checkbox values
+    electricalService,maintananceService,newDevelopmentsService,paintingService,plumbingService,renovationService
+       , requests)
   res.json({success: true})
 })
 
@@ -123,15 +124,35 @@ async function newServiceRequest(first_name,last_name,email,cell,address,suburb,
     .from('service_requests')
     .insert({first_name,last_name,email,cell,address,suburb,city,requests})
     if (error)
-        {console.error("Booking insertion failed",error.message)}
+        {console.error("Request submission to database failed",error.message)}
     console.log("insertion complete",data)
     return data
 }
 
 // email sending
-async function sendMail(first_name,last_name,email,cell,address,suburb,city,
-    renovationService,plumbingService,paintingService,newDevelopmentsService,maintananceService,electricalService
-    ,requests) {
+async function sendMail(first_name,last_name,email,cell,address,suburb,city,electricalService,maintananceService,newDevelopmentsService,paintingService,plumbingService,renovationService,requests) 
+{
+    const services = 
+    [
+        { name: 'Electrical Service', value: electricalService },
+        { name: 'Maintanance Service', value: maintananceService },
+        { name: 'New Developments Service', value: newDevelopmentsService },
+        { name: 'Painting Service', value: paintingService },
+        {name:'Plumbing Service', value: plumbingService},
+        { name: 'Renovation  Service', value: renovationService }
+    ]
+
+    console.log(services);
+        const reqServices = 
+        // new array with only elements with values
+        services.filter(service=>service.value && service.value.trim() !=="")
+        // get the service names
+        .map(service=> service.name)
+        // join them into a comma separated string
+        .join(",")
+      
+
+      
     const info = await transporter.sendMail({
         from: '"Test Email" <jaunn21@gmail.com>',
         to: "jaunn21@gmail.com",
@@ -145,7 +166,8 @@ Cell: ${cell}
 Address: ${address}
 Suburb: ${suburb}
 City: ${city}
-Services Requested:${renovationService}, ${plumbingService}, ${paintingService}, ${newDevelopmentsService}, ${maintananceService}, ${electricalService}
+Services Requested:
+${reqServices}
 Notes on what needs to be done: ${requests}
 `,
         html: `${first_name} ${last_name} has just placed a service request and needs to be contacted. <br>
@@ -156,9 +178,10 @@ Notes on what needs to be done: ${requests}
 <b>Cell:</b> ${cell}<br>
 <b>Address:</b> ${address}<br>
 <b>Suburb:</b> ${suburb}<br>
-<b>City:</b> ${city}<br><br>
-<b>Services Requested:</b><br>${renovationService}, ${plumbingService}, ${paintingService}, ${newDevelopmentsService}, ${maintananceService}, ${electricalService} <br>
-<b>Special Requests:</b><br>
+<b>City:</b> ${city}<br>
+<b>Services Requested:</b><br>
+${reqServices.split(', ')}<br>
+<b>Notes on what needs to be done:</b><br>
 ${requests}
 `
     });
