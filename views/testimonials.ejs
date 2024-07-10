@@ -1,0 +1,21 @@
+<%-include("__header")%>
+
+<div>
+  <pre><%= JSON.stringify(videos.url)%></pre>
+    <% videos.forEach(video => 
+    {%>
+      
+      <h2><%=video.name%></h2>
+   
+        <video controls width="320" height="240">
+          <source src="<%=video.url%>">
+          Your browser does not support the video tag.
+        </video>
+        <% })%>
+ 
+</div>
+
+
+
+
+<%-include("__footer")%>

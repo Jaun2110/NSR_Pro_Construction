@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'; // Import fileURLToPath to convert import.m
 import { log } from "console"
 import { name } from "ejs"
 import { fchmodSync } from "fs"
+import { url } from "inspector"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Define __dirname using import.meta.url
 
@@ -46,8 +47,6 @@ app.use(passport.session())
 
 
 // ROUTES
-// Add this route for testing environment variables
-
 app.get("/",(req,res)=>{
     // console.log(supabase)
     
@@ -122,14 +121,55 @@ app.post("/login",async(req,res)=>{
     .from('admin_users')
     .select('*')
     // filter the results where username = username entered
-    .eq('username',username)
-    
+    .eq('username',username) 
 
-
-   
-
-  
+    log(data)
 })
+
+// render testimonials page
+app.get("/testimonials",async(req,res)=>
+    {
+        // list videos in supabase bucket
+        try{
+            const {data, error} = await supabase
+            .storage
+            .from('tetimonial videos')
+            .list('')
+            // console.log(data)
+            if (error) {
+                throw error;
+              }
+            //   console.log(data);
+            // generate the public url's for each video in bucket
+            // creates new array with all videos
+            const videos = data.map(video =>{
+                const publicUrl= supabase
+                .storage
+                .from('tetimonial videos')
+                .getPublicUrl(video.name)
+                console.log(publicUrl);
+
+                // if(urlError){
+                //     console.error("Error generating public URL",error.message)
+                // }
+                // if no errors return object with video name and public url
+                return{
+                    name: video.name,
+                    url: publicUrl.data.publicUrl
+                
+                }
+            }).filter(video=> video !== null) // filter out any null values
+        
+             res.render("testimonials",{videos, currentYear:getYear()})
+        }    
+        catch (error) {
+        console.error('Error fetching videos:', error.message);
+        res.status(500).send('Error fetching videos');
+      }
+        
+        
+    })
+
 // ROUTES END
 
 // functions
