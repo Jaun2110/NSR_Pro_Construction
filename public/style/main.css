@@ -90,18 +90,6 @@ animation: moveGradient 3s linear infinite ;
         background-position: 100% 0;
     }
 }
-.price{
-    color: red;
-}
-#Total{
-    color: #005f27;
-    border: none;
-    padding-top: 0 ;
-    padding-left: 0;
-}
-input#daysStayOvers,input#daysDailyVisits,input#daysTwiceADayVisits{
-    width: 160px;
-}
 
 #topScrollBtn{
     
@@ -163,8 +151,41 @@ color: white !important;
  a.nav-link:hover{
    background-color: #5e0017 ;
 } 
-/* @media (min-width: 991px) {
-    .nav-link.admin {
-      justify-content: end !important;
+
+.testimonialHeader{
+    /* text-decoration: underline; */
+    color: #5e0017
+}
+
+  div.carousel-item.active
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+div.carousalcontainer{
+    width: 70%;
+}
+h3.item-heading{
+    text-align: center;
+    padding-bottom: 0;
+}
+p.card-text.carousal{
+   
+    text-align: center;
+}
+/* div.carousel.slide{
+    background-color: #ebebeb;
+    background-image: url("https://www.transparenttextures.com/patterns/gold-scale.png"); */
+    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+.gradient-hr-testimonial{
+    height:2px;
+    width:100px;
+    text-align: center;
+    border:1px solid ;
+    border-color: #5e0017;
+    background-image: linear-gradient(to right, #11005f,#5e0017);
+    animation: moveGradient 3s linear infinite ;
     }
-  } */
