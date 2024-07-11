@@ -90,18 +90,32 @@ animation: moveGradient 3s linear infinite ;
         background-position: 100% 0;
     }
 }
-.price{
-    color: red;
+
+.testimonialHeader{
+    text-decoration: underline;
 }
-#Total{
-    color: #005f27;
-    border: none;
-    padding-top: 0 ;
-    padding-left: 0;
+/* carousal styling */
+.carousel-inner {
+    height: 100%;
 }
-input#daysStayOvers,input#daysDailyVisits,input#daysTwiceADayVisits{
-    width: 160px;
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
 }
+.carousel-item {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #bbbbbb;
+}
+/* end */
 
 #topScrollBtn{
     

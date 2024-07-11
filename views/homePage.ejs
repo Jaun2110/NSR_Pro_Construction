@@ -118,10 +118,53 @@
         
         
     </div>
-         
+    <div>
+        <!-- Testimonial section -->
+         <hr class="gradient-hr">
+         <h2 class="testimonialHeader d-flex justify-content-center "> Testimonials</h2>
+    </div>        
 <div >
-  <button id="topScrollBtn" class="btn btn-maroon"  onclick="goToTop()">Go to top</button>
+  <button id="topScrollBtn" class="btn btn-maroon"  onclick="goToTop()">^</button>
 </div>
+
+<div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="carousel-caption">
+                <h1>John Doe</h1>
+                <p>"This company provided excellent service and I highly recommend them."</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="carousel-caption">
+                <h1>Jane Smith</h1>
+                <p>"The team was professional and the results exceeded my expectations."</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="carousel-caption">
+                <h1>Emily Johnson</h1>
+                <p>"Amazing experience! Will definitely use their services again."</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+
 
 
 <%- include("__footer") %>
