@@ -154,7 +154,8 @@ color: white !important;
 
 .testimonialHeader{
     /* text-decoration: underline; */
-    color: #5e0017
+    color: #5e0017;
+    margin-bottom: 0;
 }
 
   div.carousel-item.active
@@ -174,18 +175,16 @@ p.card-text.carousal{
    
     text-align: center;
 }
-/* div.carousel.slide{
-    background-color: #ebebeb;
-    background-image: url("https://www.transparenttextures.com/patterns/gold-scale.png"); */
-    /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-}
+
+
 .gradient-hr-testimonial{
     height:2px;
-    width:100px;
+    width:300px;
     text-align: center;
     border:1px solid ;
     border-color: #5e0017;
     background-image: linear-gradient(to right, #11005f,#5e0017);
     animation: moveGradient 3s linear infinite ;
+    padding: 0;
+    margin: 0;
     }
