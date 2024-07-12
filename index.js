@@ -3,6 +3,7 @@ import bodyParser from "body-parser"
 import env from "dotenv"
 import supabase from "./config/supabaseClient.js"
 import passport from "passport"
+import bcrypt,{hash} from "bcrypt"
 import session from "express-session"
 import transporter from "./config/emailer.js"
 import path from "path"
@@ -26,8 +27,6 @@ app.set('views', path.join(__dirname, 'views'));
 // view engine
 app.set("view engine", "ejs")
 
-
-
 // middelwares
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended:true}))
@@ -44,6 +43,9 @@ app.use(
 )
 app.use(passport.initialize())
 app.use(passport.session())
+
+// set saltRounds
+const saltRounds =10
 
 
 // ROUTES
@@ -75,6 +77,13 @@ app.get("/plumbing", (req, res)=> {
 
 app.get("/renovations",(req,res)=>{
     res.render("renovations",{currentYear: getYear()})
+})
+app.get("/admin_home", (req,res)=>{
+    if (req.session.user){
+        res.render("admin_home", {currentYear:getYear()})
+    }else{
+        res.redirect("admin_login")
+    }
 })
 
 app.post("/newServiceRequest",async(req,res)=>{
@@ -122,10 +131,66 @@ app.post("/login",async(req,res)=>{
     .select('*')
     // filter the results where username = username entered
     .eq('username',username) 
+    if (error){
+        console.log("Error querying database",error.message);
+        res.status(500).send("an error occurred while logging in")
+        return
+    }
+  
+    if (!data || data.length === 0){
+        res.send("Incorrect Username! try again")
+        return
+    }
+    const hash = data[0].password
 
-    log(data)
+    
+       bcrypt.compare(password, hash, (error,result)=>
+        {
+            if (error){
+                console.log("Error comparing passwords",error.message);
+                res.status(500).send("an error occured while logging in")
+                // ensure function execution stops when sending mesages
+                return
+            }
+            if(result){
+                // store username in session
+                req.session.user = username
+                console.log(req.session)
+                res.redirect("/admin_home")
+               
+            }else{
+                res.send("Incorrect password")
+            }
+        })
+        
+       
 })
+// render user creation page
+app.get("/addUser",(req,res)=>{
+    res.render("add_new_user",{currentYear:getYear()})
+})
+// add new user
+app.post("/newUser",async(req, res) =>{
+   const username = req.body.username
+   const plainTextPassword = req.body.password
 
+//    hash password
+bcrypt.hash(plainTextPassword,saltRounds,async(err,hash)=>{
+    console.log(hash)
+    if (err){
+        console.log("error hashing password",err);
+    }
+    const password = hash
+    // insert hash to db users table
+    const {data,error} = await supabase
+    .from("admin_users")
+    .insert({username,password})
+    if(error){
+        console.log(`error creating user: ${error.message}`);
+    }
+    console.log(`User ${username} created`);
+})
+})
 // render testimonials page
 app.get("/testimonials",async(req,res)=>
     {
@@ -165,10 +230,10 @@ app.get("/testimonials",async(req,res)=>
         catch (error) {
         console.error('Error fetching videos:', error.message);
         res.status(500).send('Error fetching videos');
-      }
-        
-        
+      }    
     })
+    // ADMIN PORTAL
+    
 
 // ROUTES END
 

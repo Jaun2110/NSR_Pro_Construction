@@ -1,7 +1,7 @@
 <%-include("__header")%>
 
 <div class="container mt-5 mb-5  w-100">
-    <h1 class="d-flex justify-content-center">NSR Admin Portal Login:</h1>
+    <h1 class="d-flex justify-content-center">NSR Add User</h1>
   
     <div class="row d-flex justify-content-center ">
       <div class="col-sm-8">
@@ -9,7 +9,7 @@
           <div class="card-body">
   
             <!-- Makes POST request to /login route -->
-            <form action="/login" method="POST">
+            <form action="/newUser" method="POST">
               <div class="form-group">
                 <label for="username">Username</label>
                 <input type="username" class="form-control" name="username">
@@ -18,13 +18,12 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control mb-2" name="password">
               </div>
-              <button type="submit" class="btn btn-dark">Login</button>
+              <button type="submit" class="btn btn-dark">Add User</button>
             </form>
   
           </div>
         </div>
       </div>
-      </div>
-        
+    </div>    
   </div>
 <%-include("__footer") %>
