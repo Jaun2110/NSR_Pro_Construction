@@ -14,7 +14,7 @@ export const renderAdminHome = (req, res) =>{
 }
 // render login page get
 export const renderLogin = (req, res) => {
-    res.render('login_test', { currentYear: getYear() });
+    res.render('admin_login', { currentYear: getYear() });
 };
 
 // login post request
@@ -50,8 +50,8 @@ export const login = (async(req,res)=>{
                if(result){
                    // store username in session
                    req.session.user = username
-                   console.log(req.session)
-                   res.redirect("/admin_home")
+                //    console.log(req.session)
+                   res.redirect("/admin/admin_home")
                   
                }else{
                    res.send("Incorrect password")

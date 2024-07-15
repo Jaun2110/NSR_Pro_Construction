@@ -17,17 +17,13 @@ const testimonials = data.map(item => {
     }
     
 })
-console.log(testimonials);
+// console.log(testimonials);
 res.render("homepage", {testimonials,currentYear: getYear()})
 
 }catch(error){
 console.log("Could not fetch testimonials from database", error.message);
+}   
 }
-
-    
-}
-
-
 export const renderServicePages = (req, res, service) =>{
     res.render(service, {currentYear: getYear()})
 }
@@ -62,7 +58,7 @@ export const newServiceRequest = async(req,res)=>{
         res.status(500).send('Request submission failed');
         return;
     }
-
+// send email
     const info = await transporter.sendMail({
         from: '"Test Email" <jaunn21@gmail.com>',
         to: "jaunn21@gmail.com",
@@ -95,6 +91,5 @@ ${reqServices.split(', ').join('<br>')}<br>
 ${notes}
 `
     });
-
     res.json({ success: true });
 };
