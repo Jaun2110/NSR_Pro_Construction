@@ -119,7 +119,7 @@ const requests = req.body.notes|| " "
 })
 // admin portal login
 app.get("/admin_portal",async(req,res)=>{
-    res.render("admin_login",{currentYear:getYear()})
+    res.render("login_test",{currentYear:getYear()})
 })
 
 app.post("/login",async(req,res)=>{
@@ -162,8 +162,7 @@ app.post("/login",async(req,res)=>{
                 res.send("Incorrect password")
             }
         })
-        
-       
+               
 })
 // render user creation page
 app.get("/addUser",(req,res)=>{

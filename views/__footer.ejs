@@ -11,31 +11,9 @@
             {
                 
 
-                        function calculateBill()
-                        {
-                            var daysDailyVisits = $("#daysDailyVisits").val()
-                            var daysTwiceADayVisits = $("#daysTwiceADayVisits").val()
-                            var daysStayOvers = $("#daysStayOvers").val()
-                            var dailyVisitTariff = 170
-                            var twiceADayVisitTariff = 220
-                            var stayOverTariff = 270
-                            var bill = (daysDailyVisits * dailyVisitTariff) + 
-                            (daysTwiceADayVisits * twiceADayVisitTariff) + (daysStayOvers * stayOverTariff)
-                            var billLabel = $(".Total").val(bill)
-                            
-                        }
+                        
 
-                        function validateDateRange()
-                        {
-                            var dateFrom =$("#dateFrom").val()
-                            var dateTo = $("#dateTo").val()
-                            var dateError = $("#dateError")
-                            if (dateTo < dateFrom){
-                                dateError.text("Date To can not be smaller than Date From!")
-                            }else{
-                                dateError.text("")
-                            }
-                        }
+                       
                         // custom validation
                         (() => {
                         'use strict'
@@ -74,7 +52,7 @@
                         }
                         
                         // function to handle form submission
-                        $('form').submit(function (e)
+                        $('#quote').submit(function (e)
                         {
                             e.preventDefault();
                             // perform form validation
@@ -89,18 +67,20 @@
                                     success: function(response){
                                         // if the request is successful hide the loader and show the modal
                                         hideLoader()
-
+                                        console.log(response)
                                         if (response.success){
+                                            debugger
                                             showModal()
                                         }else {
+                                            debugger
                                             alert('Credentials incorrect. Please try again')
                                         }
                                     },
-                                    error: function(xhr,status,error){
-                                        // hide loader and show error message
-                                        hideLoader()
-                                        alert(`Error: ${error.message}`)
-                                    }
+                                    error: function(xhr, status, error) {
+                                    hideLoader();
+                                    alert(`Error: ${error.message}`); // Display the error message
+                                    console.log(xhr.responseText); // Log the server response for detailed error analysis
+                                }
                                 })  
                             } else{
                                 // If form validation fails, prevent submission and display validation messages
