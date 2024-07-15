@@ -123,6 +123,7 @@
 <div >
   <button id="topScrollBtn" class="btn btn-maroon"  onclick="goToTop()">Go to top</button>
 </div>
+
 <div>
     <!-- Testimonial section -->
      <hr class="gradient-hr">
@@ -139,28 +140,18 @@
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <!-- loop through items in db and display each item -->
-        <div class="carousel-item mt-3 active">
-                 <div class="carousalcontainer ">
+        <% for (let i = 0; i < testimonials.length; i++) { %>
+            <div class="carousel-item mt-3 <%= i === 0 ? 'active' : '' %>">
+                <div class="carousalcontainer">
                     <div class="card-body carousal">
-                        <h3 class="item-heading">Mr Miyagi</h3>
+                        <h3 class="item-heading"><%= testimonials[i].heading %></h3>
                         <p class="card-text carousal mb-3">
-                           Their wax-on wax-off technique is unbeatable!
+                            <%= testimonials[i].content %>
                         </p>
                     </div>
-                </div>
-            
-        </div>
-        <div class="carousel-item mt-3 ">
-            <div class="carousalcontainer ">
-               <div class="card-body carousal">
-                   <h3 class="item-heading">Jackie Chan</h3>
-                   <p class="card-text carousal mb-3">
-                    Their service is so smooth! Best in town.
-                   </p>
-               </div>
-           </div>
-       
-   </div>
+                </div>   
+            </div>
+        <% } %>
         
     <!-- Left and right controls/icons -->
     <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
@@ -170,6 +161,5 @@
       <span class="carousel-control-next-icon"></span>
     </button>
 </div>
-
 
 <%- include("__footer") %>
