@@ -5,11 +5,33 @@ import {getYear} from "../utils/dateUtils.js"
 // set saltRounds
 const saltRounds =10
 
-export const renderAdminHome = (req, res) =>{
+export const renderAdminHome = async(req, res) =>{
     if (req.session.user){
-        res.render("admin_home", {currentYear:getYear()})
+// get all service requests and display them on the homepage
+        try {
+            const {data, error} = await supabase.from('service_requests')
+        .select("id, first_name, last_name, email, cell, address, suburb, city, requests ,created_at")
+        .order("created_at", {ascending:true})
+        
+        // convert the time stamp to a date
+        let processedData = data.map(row =>({
+            ...row,
+            date_created: new Date(row.created_at).toISOString().split('T')[0]
+           
+        }))     
+        // console.log(processedData[0]);
+        // console.log(processedData[0].date_created); 
+
+        // convert object to string before sending to view
+        // processedData = JSON.stringify(processedData)
+        res.render("admin_home", {processedData,currentYear:getYear()})      
+        } 
+        catch (error) {
+            console.log("error fetching requests from table",error.message);
+        }
+           
     }else{
-        res.redirect("admin_login")
+        res.redirect("/admin/portal")
     }
 }
 // render login page get
@@ -50,7 +72,7 @@ export const login = (async(req,res)=>{
                if(result){
                    // store username in session
                    req.session.user = username
-                //    console.log(req.session)
+
                    res.redirect("/admin/admin_home")
                   
                }else{
