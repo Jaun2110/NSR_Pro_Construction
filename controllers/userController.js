@@ -43,10 +43,3 @@ export const getVideos = async(req,res)=>
       }    
     }
 
-
-    // fetch testimonials
-
-    export const getTestimonials = async(req, res) =>{
-       
-
-    }

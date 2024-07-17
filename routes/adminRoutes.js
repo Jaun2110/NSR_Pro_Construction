@@ -1,5 +1,5 @@
 import express, { Router } from "express"
-import { login, renderAdminHome, renderLogin,renderAddUser,addUser } from "../controllers/adminController.js"
+import { login, renderAdminHome, renderLogin,renderAddUser,addUser,renderCloudTable } from "../controllers/adminController.js"
 
 // setup router
 const router = express.Router()
@@ -9,5 +9,6 @@ router.get("/portal",renderLogin)
 router.post("/login",login)
 router.get('/addUser', renderAddUser);
 router.post('/newUser', addUser);
+router.get("/cloudTables", renderCloudTable)
 
 export default router

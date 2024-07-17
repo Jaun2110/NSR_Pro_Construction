@@ -10,6 +10,9 @@ import adminRoutes from "./routes/adminRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import serviceRequestRoutes from "./routes/serviceRequestRoutes.js"
 
+// cloudtables initialisation
+import CloudTablesApi from "cloudtables-api"
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Define __dirname using import.meta.url
 
 // initialize env variables

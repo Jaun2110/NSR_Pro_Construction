@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt"
 import supabase from "../config/supabaseClient.js"
 import {getYear} from "../utils/dateUtils.js"
+import CloudTablesApi, * as CloudTablesApiModule from "cloudtables-api"
 
 // set saltRounds
 const saltRounds =10
@@ -19,11 +20,7 @@ export const renderAdminHome = async(req, res) =>{
             date_created: new Date(row.created_at).toISOString().split('T')[0]
            
         }))     
-        // console.log(processedData[0]);
-        // console.log(processedData[0].date_created); 
-
-        // convert object to string before sending to view
-        // processedData = JSON.stringify(processedData)
+       
         res.render("admin_home", {processedData,currentYear:getYear()})      
         } 
         catch (error) {
@@ -109,3 +106,16 @@ export const addUser = async(req, res) =>{
      console.log(`User ${username} created`);
  })
  }
+
+//  cloudTables
+export const renderCloudTable = async(req, res)=>{
+    const CloudTablesApi = CloudTablesApiModule.default.default
+    let api = new CloudTablesApi('4uvvj4znep', 'PS8YPLFVCCKrpEba1E3MH1hP', {
+        clientId: 'jaun' // Client id (e.g. a login id) - optional
+        // clientName: 'Name'            // Client's name - optional
+    });
+    let token = await api.token();
+    let script = api.dataset('6e53de86-4377-11ef-a88d-37240e3df000').scriptTag(token);
+   
+     res.render("cloud_user_tables", {cloudTable:script})
+}
