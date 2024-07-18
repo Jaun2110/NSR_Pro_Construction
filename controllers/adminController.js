@@ -12,8 +12,8 @@ export const renderAdminHome = async(req, res) =>{
 // get all service requests and display them on the homepage
         try {
             const {data, error} = await supabase.from('service_requests')
-        .select("id, first_name, last_name, email, cell, address, suburb, city, requests ,created_at")
-        .order("created_at", {ascending:true})
+        .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status ,created_at")
+        .order("created_at", {ascending:false})
         
         // convert the time stamp to a date
         let processedData = data.map(row =>({
@@ -21,7 +21,7 @@ export const renderAdminHome = async(req, res) =>{
             date_created: new Date(row.created_at).toISOString().split('T')[0]
            
         }))     
-        // console.log(processedData[0]);
+         console.log(processedData);
         // console.log(processedData[0].date_created); 
 
         // convert object to string before sending to view
@@ -114,11 +114,11 @@ export const addUser = async(req, res) =>{
 
 //  save updated service request
 export const updateRequest = async(req, res) =>{
-    const { id, first_name, last_name, email, cell, address, suburb, city, requests } = req.body;
+    const { id, first_name, last_name, email, cell, address, suburb, city, requests,status } = req.body;
     try {
         const { data, error } = await supabase
             .from('service_requests')
-            .update({ first_name, last_name, email, cell, address, suburb, city, requests })
+            .update({ first_name, last_name, email, cell, address, suburb, city, requests,status })
             .eq('id', id);
         
         if (error) throw error;

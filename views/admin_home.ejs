@@ -1,4 +1,5 @@
 <%-include("__header")%>
+<%-include("__logoAndNavAdminHome")%>
 <h1>This is the admin portal homepage!</h1>
 
 <!-- display records in datagrid -->
@@ -36,9 +37,9 @@
                 <td><%= row.date_created %></td>
                 <td>
                     <select class="status-select">
-                        <option value="pending">Pending</option>
-                        <option value="in_progress">In Progres</option>
-                        <option value="completed">Completed</option>
+                        <option value="pending"<%=row.status === 'pending' ? 'selected': ''%>>Pending</option>
+                        <option value="in_progress" <%=row.status === 'in_progress' ? 'selected': ''%>>In Progres</option>
+                        <option value="completed" <%=row.status === 'completed' ? 'selected': ''%>>Completed</option>
                     </select>
                 </td>
                 <td>
