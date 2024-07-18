@@ -50,7 +50,8 @@ export const newServiceRequest = async(req,res)=>{
         address: street,
         suburb,
         city,
-        requests: notes
+        requests: notes,
+        status:"pending"
     });
     
     if (error) {

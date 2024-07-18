@@ -17,6 +17,7 @@
             <th>City</th>
             <th>Requests</th>
             <th>Date Created</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -33,6 +34,13 @@
                 <td contenteditable="true"><%= row.city %></td>
                 <td contenteditable="true"><%= row.requests %></td>
                 <td><%= row.date_created %></td>
+                <td>
+                    <select class="status-select">
+                        <option value="pending">Pending</option>
+                        <option value="in_progress">In Progres</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </td>
                 <td>
                   <button class="btn btn-success save-row" data-id="<%= row.id %>"><i class="fa-solid fa-floppy-disk" style="color: #e6e6e6;"></i></button>
                   <button class="btn btn-danger delete-row" data-id="<%= row.id %>"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>

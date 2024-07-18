@@ -146,7 +146,18 @@
             { width: "100px", targets: 7 }, // City column
             { width: "100px", targets: 8 }, // Requests column
             { width: "100px", targets: 9 }, // Date Created column
-            { width: "100px", targets: 10 } // Actions column
+            { width: "100px", targets: 10,// status column
+                render: function(data, type, row, meta){
+                    return `
+                    <select class="status-select">
+                        <option value="pending" ${data === 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="in_progress" ${data === 'in_progress' ? 'selected' : ''}>In Progress</option>
+                        <option value="completed" ${data === 'completed' ? 'selected' : ''}>Completed</option>
+                    </select>
+                `;
+                }
+             },
+             // Actions column
         ]
             });
 
@@ -162,7 +173,9 @@
                 address: $row.find('td').eq(5).html().trim(),
                 suburb: $row.find('td').eq(6).html().trim(),
                 city: $row.find('td').eq(7).html().trim(),
-                requests: $row.find('td').eq(8).html().trim()
+                requests: $row.find('td').eq(8).html().trim(),
+                status: $row.find('select.status-select').val()
+
             };
             //  console.log(rowData); // Print the row data to the console to verify
             // Send updated data to the server

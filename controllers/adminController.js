@@ -132,11 +132,11 @@ export const updateRequest = async(req, res) =>{
 // delete request
 
 export const deleteRequest = async(req, res)=>{
-    const { id, first_name, last_name, email, cell, address, suburb, city, requests } = req.body;
+    const { id, first_name, last_name, email, cell, address, suburb, city, requests,status } = req.body;
     // insert tecord into del_service_request table 
     try {
         const {data,error} = await supabase.from("del_service_requests")
-        .insert({id, first_name, last_name, email, cell, address, suburb, city, requests})
+        .insert({id, first_name, last_name, email, cell, address, suburb, city, requests, status})
         
         if (error) {throw error}
         
