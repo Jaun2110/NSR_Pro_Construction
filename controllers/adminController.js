@@ -2,6 +2,8 @@ import bcrypt from "bcrypt"
 import supabase from "../config/supabaseClient.js"
 import {getYear} from "../utils/dateUtils.js"
 
+// datatable imports
+
 // set saltRounds
 const saltRounds =10
 
@@ -109,3 +111,66 @@ export const addUser = async(req, res) =>{
      console.log(`User ${username} created`);
  })
  }
+
+//  save updated service request
+export const updateRequest = async(req, res) =>{
+    const { id, first_name, last_name, email, cell, address, suburb, city, requests } = req.body;
+    try {
+        const { data, error } = await supabase
+            .from('service_requests')
+            .update({ first_name, last_name, email, cell, address, suburb, city, requests })
+            .eq('id', id);
+        
+        if (error) throw error;
+        
+        res.status(200).send({ message: 'Row updated successfully', data });
+    } catch (error) {
+        res.status(500).send({ message: 'Error updating row', error });
+    }
+}
+
+// delete request
+
+export const deleteRequest = async(req, res)=>{
+    const { id, first_name, last_name, email, cell, address, suburb, city, requests } = req.body;
+    // insert tecord into del_service_request table 
+    try {
+        const {data,error} = await supabase.from("del_service_requests")
+        .insert({id, first_name, last_name, email, cell, address, suburb, city, requests})
+        
+        if (error) {throw error}
+        
+        res.status(200).send({
+            message: 'row inserted to del_service_requests table',
+            data})
+
+            // console.log(id);
+        // call delRequest 
+        delRequest(id,res)
+    } catch (error) {
+        console.log('Error inserting into del_service_requests table', error.message);
+
+        // send error response
+        res.status(500).send({
+            message: 'Error inserting into del_service_requests table'
+        });
+    }
+   
+    
+}
+
+async function delRequest(id,res){
+     // delete record from service request table
+     try {
+        const {data, error} = await supabase.from("service_requests")
+        .delete().eq('id',id)
+        if (error) {throw error}
+
+        console.log('Row delete successfull');
+    } catch (error) {
+        console.log('Error deleting record from service_requests table');
+
+
+    }
+
+} 

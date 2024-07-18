@@ -8,12 +8,8 @@
                             charLabel.text(`${characterCount} of 300 characters`)
                         }
             $(document).ready(function()
-            {
-                
-
-                        
-
-                       
+            {       
+                      
                         // custom validation
                         (() => {
                         'use strict'
@@ -119,6 +115,105 @@
                 }
                    
             })
+            // DataTables functions and styling
+          
+            $('#serviceRequests').DataTable({
+                responsive: false,
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                scrollX:"true",
+                scrollY: "true",
+                scrollCollapse: true,
+                dom:  '<"d-flex justify-content-between align-items-center"Bf>rt<"d-flex justify-content-between"lp><"clear">',
+                buttons: [
+                   'pdf', 'print'
+                ],
+                lengthMenu: [
+        [10, 25, 50, -1],
+        [10, 25, 50, 'All']
+    ],
+             columnDefs: [
+            { width: "45px", targets: 0 }, // ID column
+            { width: "80px", targets: 1 }, // First Name column
+            { width: "90px", targets: 2 }, // Last Name column
+            { width: "130px", targets: 3 }, // Email column
+            { width: "85px", targets: 4 }, // Cell column
+            { width: "100px", targets: 5 }, // Address column
+            { width: "100px", targets: 6 }, // Suburb column
+            { width: "100px", targets: 7 }, // City column
+            { width: "100px", targets: 8 }, // Requests column
+            { width: "100px", targets: 9 }, // Date Created column
+            { width: "100px", targets: 10 } // Actions column
+        ]
+            });
+
+            // Save button click handler
+        $('#serviceRequests tbody').on('click', '.save-row', function() {
+            var $row = $(this).closest('tr');
+             var rowData =  {
+                id: $(this).data('id'),
+                first_name: $row.find('td').eq(1).html().trim(),
+                last_name: $row.find('td').eq(2).html().trim(),
+                email: $row.find('td').eq(3).html().trim(),
+                cell: $row.find('td').eq(4).html().trim(),
+                address: $row.find('td').eq(5).html().trim(),
+                suburb: $row.find('td').eq(6).html().trim(),
+                city: $row.find('td').eq(7).html().trim(),
+                requests: $row.find('td').eq(8).html().trim()
+            };
+            //  console.log(rowData); // Print the row data to the console to verify
+            // Send updated data to the server
+            $.ajax({
+                url: '/admin/update-service-request',
+                method: 'POST',
+                data: rowData,
+                success: function(response) {
+                    // Handle success
+                    alert('Row updated successfully');
+                },
+                error: function(error) {
+                    // Handle error
+                    console.error('Error updating row', error);
+                }
+            });
+        });
+    
+
+
+        // Delete button click handler
+        $('#serviceRequests tbody').on('click', '.delete-row', function() {
+            var $row = $(this).closest('tr');
+             var rowData =  {
+                id: $(this).data('id'),
+                first_name: $row.find('td').eq(1).html().trim(),
+                last_name: $row.find('td').eq(2).html().trim(),
+                email: $row.find('td').eq(3).html().trim(),
+                cell: $row.find('td').eq(4).html().trim(),
+                address: $row.find('td').eq(5).html().trim(),
+                suburb: $row.find('td').eq(6).html().trim(),
+                city: $row.find('td').eq(7).html().trim(),
+                requests: $row.find('td').eq(8).html().trim()
+            };
+            //  console.log(rowData); // Print the row data to the console to verify
+            // Send updated data to the server
+            $.ajax({
+                url: '/admin/delete-service-request',
+                method: 'POST',
+                data: rowData,
+                success: function(response) {
+                    // Handle success
+                    alert('Row deleted successfully');
+                },
+                error: function(error) {
+                    // Handle error
+                    console.error('Error deleting row', error);
+                }
+            });
+        });
+            // datatables function end
             
 
             

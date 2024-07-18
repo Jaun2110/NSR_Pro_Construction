@@ -1,30 +1,50 @@
 <%-include("__header")%>
 <h1>This is the admin portal homepage!</h1>
-<pre><%= processedData.length%></pre>
-<table class="table table-bordered">
+
+<!-- display records in datagrid -->
+<div class="container-fluid mt-5">
+ <div class="table-responsive">
+  <table id="serviceRequests" class="table table-bordered table-striped nowrap">
     <thead>
-      <tr>
-        <th scope="col">ID</th>
-       
-        <th scope="col">Email</th>
-        <th scope="col">Cell</th>
-        
-        <th scope="col">Notes</th>
-      </tr>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Cell</th>
+            <th>Address</th>
+            <th>Suburb</th>
+            <th>City</th>
+            <th>Requests</th>
+            <th>Date Created</th>
+            <th>Actions</th>
+        </tr>
     </thead>
     <tbody>
-        <!-- display records in table -->
-        <% for(let i =0; i < processedData.length; i++){ %>
+        <% processedData.forEach(function(row) { %>
             <tr>
-                <th scope="row"><%= processedData[i].id%></th>
-                <td><%=processedData[i].email%></td>
-                <td><%=processedData[i].cell%></td>
-                <td><%=processedData[i].requests%></td>
-
-            </tr>
-       <% } %>
+                <td><%= row.id %></td>
+                <td contenteditable="true"><%= row.first_name %></td>
+                <td contenteditable="true"><%= row.last_name %></td>
+                <td contenteditable="true"><%= row.email %></td>
+                <td contenteditable="true"><%= row.cell %></td>
+                <td contenteditable="true"><%= row.address %></td>
+                <td contenteditable="true"><%= row.suburb %></td>
+                <td contenteditable="true"><%= row.city %></td>
+                <td contenteditable="true"><%= row.requests %></td>
+                <td><%= row.date_created %></td>
+                <td>
+                  <button class="btn btn-success save-row" data-id="<%= row.id %>"><i class="fa-solid fa-floppy-disk" style="color: #e6e6e6;"></i></button>
+                  <button class="btn btn-danger delete-row" data-id="<%= row.id %>"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                </td>
+              
+              </tr>
+        <% }) %>
     </tbody>
-  </table>
+</table>
+ </div>
+</div>
+     
 
 <%-include("__footer")%>
 

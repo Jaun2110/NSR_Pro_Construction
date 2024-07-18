@@ -200,4 +200,29 @@ p.card-text.carousal{
     padding: 0;
     margin: 0;
     }
- 
+
+    /* datatable components */
+    .dataTables_wrapper .dataTables_filter {
+        float: right;
+        text-align: right;
+    }
+    .dataTables_wrapper .dataTables_length {
+        float: left;
+    }
+    .dataTables_scrollBody {
+        overflow-x: auto;
+    }
+    table.dataTable {
+        width: 100% !important;
+    }
+ /* Set fixed width for table columns */
+#serviceRequests th, #serviceRequests td {
+    width: 150px; /* Adjust this value as needed */
+    white-space: normal; /* Enable word wrapping */
+    word-wrap: break-word; /* Ensure long words break properly */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+#serviceRequests{
+    table-layout: fixed;
+}
