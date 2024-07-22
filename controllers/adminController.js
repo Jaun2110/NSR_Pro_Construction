@@ -155,10 +155,7 @@ export const deleteRequest = async(req, res)=>{
             message: 'Error inserting into del_service_requests table'
         });
     }
-   
-    
 }
-
 async function delRequest(id,res){
      // delete record from service request table
      try {
@@ -169,8 +166,125 @@ async function delRequest(id,res){
         console.log('Row delete successfull');
     } catch (error) {
         console.log('Error deleting record from service_requests table');
-
-
     }
-
 } 
+export const pendingRequests = async(rew, res)=>{
+    // retrieve pending reqquests from db
+    try {
+        const {data, error} = await supabase.from('service_requests')
+    .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status ,created_at")
+    .eq('status','pending')
+    .order("created_at", {ascending:false})
+    
+    // convert the time stamp to a date
+    let processedData = data.map(row =>({
+        ...row,
+        date_created: new Date(row.created_at).toISOString().split('T')[0]
+       
+    }))     
+     console.log(processedData);
+    
+    res.render("pendingRequests", {processedData,currentYear:getYear()})      
+    } 
+    catch (error) {
+        console.log("error fetching requests from table",error.message);
+    }
+}
+export const inProgressRequests = async(rew, res)=>{
+    // retrieve pending reqquests from db
+    try {
+        const {data, error} = await supabase.from('service_requests')
+    .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status ,created_at")
+    .eq('status','in_progress')
+    .order("created_at", {ascending:false})
+    
+    // convert the time stamp to a date
+    let processedData = data.map(row =>({
+        ...row,
+        date_created: new Date(row.created_at).toISOString().split('T')[0]
+       
+    }))     
+     console.log(processedData);
+    
+    res.render("inProgressRequests", {processedData,currentYear:getYear()})      
+    } 
+    catch (error) {
+        console.log("error fetching requests from table",error.message);
+    }
+}
+export const completedRequests = async(req, res)=>{
+    // retrieve pending reqquests from db
+    try {
+        const {data, error} = await supabase.from('service_requests')
+    .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status ,created_at")
+    .eq('status','completed')
+    .order("created_at", {ascending:false})
+    
+    // convert the time stamp to a date
+    let processedData = data.map(row =>({
+        ...row,
+        date_created: new Date(row.created_at).toISOString().split('T')[0]
+       
+    }))     
+     console.log(processedData);
+    
+    res.render("completedRequests", {processedData,currentYear:getYear()})      
+    } 
+    catch (error) {
+        console.log("error fetching requests from table",error.message);
+    }
+}
+export const addRequest = (req, res)=>{
+    res.render("newRequest",{currentYear:getYear()})
+}
+
+export const renderTestimonials = async(req, res)=>{
+    // retrieve pending reqquests from db
+    try {
+        const {data, error} = await supabase.from('testimonials')
+    .select("id, heading, content, created_at")
+    .order("id", {ascending:false})
+    
+    // convert the time stamp to a date
+    let processedData = data.map(row =>({
+        ...row,
+        date_created: new Date(row.created_at).toISOString().split('T')[0]
+       
+    }))     
+     console.log(processedData);
+    
+    res.render("edit_testimonials", {processedData,currentYear:getYear()})      
+    } 
+    catch (error) {
+        console.log("error fetching requests from table",error.message);
+    }
+}
+//  save updated testimonial
+export const updateTestimonial = async(req, res) =>{
+    const { id, heading, content} = req.body;
+    try {
+        const { data, error } = await supabase
+            .from('testimonials')
+            .update({ heading, content })
+            .eq('id', id);
+        
+        if (error) throw error;
+        
+        res.status(200).send({ message: 'Row updated successfully', data });
+    } catch (error) {
+        res.status(500).send({ message: 'Error updating row', error });
+    }
+}
+
+export const deleteTestimonial= async(req, res)=>{
+    const { id} = req.body;
+    try {
+        const {data, error} = await supabase.from("testimonials")
+        .delete().eq('id',id)
+        if (error) {throw error}
+
+        console.log('Row delete successfull');
+    } catch (error) {
+        console.log('Error deleting record from testimonials table');
+    }
+}

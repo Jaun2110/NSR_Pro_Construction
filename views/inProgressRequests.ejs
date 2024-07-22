@@ -1,16 +1,15 @@
 <%-include("__header")%>
 <h1 class="d-flex justify-content-center">NSR Admin Portal</h1>
-<%-include("__logoAndNavAdminHome")%>
-<h1 class="testimonialHeader d-flex justify-content-center py-3 ">All service requests:</h1>
+<%-include("__logoAndNavAdminInProgressRequests")%>
+<h1 class="testimonialHeader d-flex justify-content-center py-3 ">Requests in Progress:</h1>
 <div class="hr-container d-flex justify-content-center">
     <hr class="gradient-hr-admin-heading">
  </div>
-<a href=""></a>
 
 <!-- display records in datagrid -->
-<div class="container-fluid mt-2" style="overflow-x: auto;">
+<div class="container-fluid mt-2">
  <div class="table-responsive">
-  <table id="serviceRequests" class="table table-bordered table-striped nowrap" style="width: 100%;">
+  <table id="serviceRequests" class="table table-bordered table-striped nowrap">
     <thead>
         <tr>
             <th>ID</th>
@@ -61,4 +60,3 @@
      
 
 <%-include("__footer")%>
-

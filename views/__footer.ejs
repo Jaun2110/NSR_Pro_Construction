@@ -118,7 +118,7 @@
             // DataTables functions and styling
            
 
-          // old
+          // service request data table
         var datatable =  $('#serviceRequests').DataTable({
                 responsive: false,
                 select:true,
@@ -138,34 +138,25 @@
         [10, 25, 50, -1],
         [10, 25, 50, 'All']
     ],
-             columnDefs: [
-            { width: "45px", targets: 0, }, // ID column
-            { width: "80px", targets: 1 ,}, // First Name column
-            { width: "90px", targets: 2 }, // Last Name column
-            { width: "130px", targets: 3 }, // Email column
-            { width: "85px", targets: 4 }, // Cell column
-            { width: "100px", targets: 5 }, // Address column
-            { width: "100px", targets: 6 }, // Suburb column
-            { width: "100px", targets: 7 }, // City column
-            { width: "100px", targets: 8 }, // Requests column
-            { width: "100px", targets: 9 }, // Date Created column
-            { width: "100px", targets: 10// status column
-            
-                // render: function(processedData, type, row, meta){
-                //     return `
-                //     <select class="status-select">
-                //         <option value="pending" ${processedData === 'pending' ? 'selected' : ''}>Pending</option>
-                //         <option value="in_progress" ${processedData === 'in_progress' ? 'selected' : ''}>In Progress</option>
-                //         <option value="completed" ${processedData === 'completed' ? 'selected' : ''}>Completed</option>
-                //     </select>
-                // `;
-                // }
-             }
-             // Actions column
+              columnDefs: [
+             { width: "5%", targets: 0, }, // ID column
+             { width: "6%", targets: 1 ,}, // First Name column
+             { width: "8%", targets: 2 }, // Last Name column
+             { width: "13%", targets: 3 }, // Email column
+             { width: "8%", targets: 4 }, // Cell column
+             { width: "8%", targets: 5 }, // Address column
+             { width: "8%", targets: 6 }, // Suburb column
+             { width: "8%", targets: 7 }, // City column
+             { width: "10%", targets: 8 }, // Requests column
+             { width: "8%", targets: 9 }, // Date Created column
+             { width: "8%", targets: 10}// status column
              
         ]
-            });
 
+})
+ // Adjust column widths to match what is set above
+ datatable.columns.adjust().draw()
+              
             // Save button click handler
         $('#serviceRequests tbody').on('click', '.save-row', function() {
             var $row = $(this).closest('tr');
@@ -182,7 +173,7 @@
                 status: $row.find('select.status-select').val()
 
             };
-            //  console.log(rowData); // Print the row data to the console to verify
+            
             // Send updated data to the server
             $.ajax({
                 url: '/admin/update-service-request',
@@ -198,8 +189,6 @@
                 }
             });
         });
-    
-
 
         // Delete button click handler
         $('#serviceRequests tbody').on('click', '.delete-row', function() {
@@ -232,8 +221,99 @@
                 }
             });
         });
-            // datatables function end
+            // service request datatable function end
+            // testimonial datatable
+             // service request data table
+        var testimonialDatatable =  $('#testimonials').DataTable({
+                responsive: false,
+                select:true,
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                scrollX:"true",
+                scrollY: "true",
+                scrollCollapse: true,
+                dom:  '<"d-flex justify-content-between align-items-center"f>rt<"d-flex justify-content-between"lp><"clear">',
+                lengthMenu: [
+        [10, 25, 50, -1],
+        [10, 25, 50, 'All']
+    ],
+              columnDefs: [
+             { width: "5%", targets: 0, }, // ID column
+             { width: "6%", targets: 1 ,}, // heading column
+             { width: "8%", targets: 2 }, // content column
+             { width: "8%", targets: 3 }, // Date Created column 
+        ]
+})
+ // Adjust column widths to match what is set above
+ testimonialDatatable.columns.adjust().draw()
+              
+            // Save button click handler
+        $('#testimonials tbody').on('click', '.save-testimonial', function() {
+            var $row = $(this).closest('tr');
+             var rowData =  {
+                id: $(this).data('id'),
+                heading: $row.find('td').eq(1).html().trim(),
+                content: $row.find('td').eq(2).html().trim()
+            };
             
+            // Send updated data to the server
+            $.ajax({
+                url: '/admin/update-testimonial',
+                method: 'POST',
+                data: rowData,
+                success: function(response) {
+                    // Handle success
+                    alert('Row updated successfully');
+                },
+                error: function(error) {
+                    // Handle error
+                    console.error('Error updating row', error);
+                }
+            });
+        });
+
+        // Delete button click handler
+        $('#testimonial tbody').on('click', '.delete-testimonial', function() {
+            var $row = $(this).closest('tr');
+             var rowData =  {
+                id: $(this).data('id'),
+                header: $row.find('td').eq(1).html().trim(),
+                content: $row.find('td').eq(2).html().trim(), 
+            };
+            //  console.log(rowData); // Print the row data to the console to verify
+            // Send updated data to the server
+            $.ajax({
+                url: '/admin/delete-testimonial',
+                method: 'POST',
+                data: rowData,
+                success: function(response) {
+                    // Handle success
+                    alert('Row deleted successfully');
+                },
+                error: function(error) {
+                    // Handle error
+                    console.error('Error deleting row', error);
+                }
+            });
+        });
+
+            // Add a new row when the create button is clicked
+            $('.btn-create').on('click', function() {
+                // Add your data for the new row
+                var currentDate= new Date().getUTCDate()
+                var newRowData = [
+                    '', // ID will be auto-generated or set as needed
+                   'heading','content',
+                    currentDate, // Current date or set as needed
+                    '<button class="edit">Edit</button><button class="delete">Delete</button>' // Actions
+                ];
+
+                // Add the new row to the table
+                testimonialDatatable.row.add(newRowData).draw(false);
+            });
 
             
         </script>

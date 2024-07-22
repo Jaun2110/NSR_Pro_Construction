@@ -200,29 +200,60 @@ p.card-text.carousal{
     padding: 0;
     margin: 0;
     }
+    .gradient-hr-admin-heading{
+        height:2px;
+        width:500px;
+        text-align: center;
+        border:1px solid ;
+        border-color: #5e0017;
+        background-image: linear-gradient(to right, #11005f,#5e0017);
+        animation: moveGradient 3s linear infinite ;
+        padding: 0;
+        margin: 0;
+        }
 
     /* datatable components */
-    .dataTables_wrapper .dataTables_filter {
-        float: right;
-        text-align: right;
-    }
-    .dataTables_wrapper .dataTables_length {
+    .dataTables_wrapper  {
         float: left;
-    }
-    .dataTables_scrollBody {
+        text-align: left;
+        width: 100%;
         overflow-x: auto;
+        
     }
+    .datatables_filter{
+        display: flex;
+        align-items: center;
+    }
+    .datatables_filter label{
+        margin-right: 5px;
+    }
+    .dataTables_wrapper .dataTables_filter, 
+        .dataTables_wrapper .dataTables_length {
+            float: left;
+            text-align: left;
+        }
+     /* Ensure the table container is scrollable on smaller screens */
+     @media screen and (max-width: 991px) {
+        .dataTables_wrapper {
+            overflow-x: auto;
+        }
+    }
+   
     table.dataTable {
         width: 100% !important;
     }
- /* Set fixed width for table columns */
+  
+ /* Set fixed width for table columns this ids done with column defs on footer */
 #serviceRequests th, #serviceRequests td {
-    width: 150px; /* Adjust this value as needed */
+    /* width: 150px; Adjust this value as needed */
     white-space: normal; /* Enable word wrapping */
-    word-wrap: break-word; /* Ensure long words break properly */
+    word-wrap: break-all; /* Ensure long words break properly */
     overflow: hidden; /* Hide overflow content */
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    text-overflow: clip; /* Add ellipsis for overflow text */
 }
 #serviceRequests{
     table-layout: fixed;
+}
+.btn-create {
+    margin-bottom: 10px; /* Adjust the space below the button */
 }
