@@ -2,7 +2,7 @@
             // function palaced outside of document.ready to ensure global scope
             function getCount()
                         {
-                            var textarea = $("#requests")
+                            var textarea = $("#notes")
                             var charLabel = $("#charCount")
                             var characterCount = textarea.val().length
                             charLabel.text(`${characterCount} of 300 characters`)
@@ -44,7 +44,7 @@
                         // showModal
                         function showModal() 
                         {
-                            $("#bookingModal").modal('show')
+                            $("#serviceRequestModal").modal('show')
                         }
                         
                         // function to handle form submission
