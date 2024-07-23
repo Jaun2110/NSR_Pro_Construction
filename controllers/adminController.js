@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import supabase from "../config/supabaseClient.js"
 import {getYear} from "../utils/dateUtils.js"
 
