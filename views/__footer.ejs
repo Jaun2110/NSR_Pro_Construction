@@ -119,41 +119,41 @@
            
 
           // service request data table
-        var datatable =  $('#serviceRequests').DataTable({
-                responsive: false,
-                select:true,
-                paging: true,
-                searching: true,
-                ordering: true,
-                info: true,
-                autoWidth: false,
-                scrollX:"true",
-                scrollY: "true",
-                scrollCollapse: true,
-                dom:  '<"d-flex justify-content-between align-items-center"Bf>rt<"d-flex justify-content-between"lp><"clear">',
-                buttons: [
-                   'pdf', 'print'
-                ],
-                lengthMenu: [
+        var datatable= $('#serviceRequests').DataTable({
+    responsive: false,
+    select: true,
+    paging: true,
+    searching: true,
+    ordering: true,
+    info: true,
+    autoWidth: false,
+    scrollX: true,
+    scrollY: true,
+    scrollCollapse: true,
+    dom: '<"d-flex justify-content-between align-items-center"Bf>rt<"d-flex justify-content-between"lp><"clear">',
+    buttons: [
+    ],
+    lengthMenu: [
         [10, 25, 50, -1],
         [10, 25, 50, 'All']
     ],
-              columnDefs: [
-             { width: "5%", targets: 0, }, // ID column
-             { width: "6%", targets: 1 ,}, // First Name column
-             { width: "8%", targets: 2 }, // Last Name column
-             { width: "13%", targets: 3 }, // Email column
-             { width: "8%", targets: 4 }, // Cell column
-             { width: "8%", targets: 5 }, // Address column
-             { width: "8%", targets: 6 }, // Suburb column
-             { width: "8%", targets: 7 }, // City column
-             { width: "10%", targets: 8 }, // Requests column
-             { width: "8%", targets: 9 }, // Date Created column
-             { width: "8%", targets: 10}// status column
-             
-        ]
-
-})
+    columnDefs: [
+        { width: "5%", targets: 0 },  // ID column
+        { width: "6%", targets: 1 },  // First Name column
+        { width: "8%", targets: 2 },  // Last Name column
+        { width: "13%", targets: 3 }, // Email column
+        { width: "8%", targets: 4 },  // Cell column
+        { width: "8%", targets: 5 },  // Address column
+        { width: "8%", targets: 6 },  // Suburb column
+        { width: "8%", targets: 7 },  // City column
+        { width: "10%", targets: 8 }, // Requests column
+        { width: "8%", targets: 9 },  // Date Created column
+        { width: "8%", targets: 10 },  // Status column
+        { width: "10%", targets: 11 } // Actions column
+    ]
+   
+    
+});
  // Adjust column widths to match what is set above
  datatable.columns.adjust().draw()
               

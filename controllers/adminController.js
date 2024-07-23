@@ -21,7 +21,7 @@ export const renderAdminHome = async(req, res) =>{
             date_created: new Date(row.created_at).toISOString().split('T')[0]
            
         }))     
-         console.log(processedData);
+        //  console.log(processedData);
         // console.log(processedData[0].date_created); 
 
         // convert object to string before sending to view
@@ -182,7 +182,7 @@ export const pendingRequests = async(rew, res)=>{
         date_created: new Date(row.created_at).toISOString().split('T')[0]
        
     }))     
-     console.log(processedData);
+    //  console.log(processedData);
     
     res.render("pendingRequests", {processedData,currentYear:getYear()})      
     } 
@@ -204,7 +204,7 @@ export const inProgressRequests = async(rew, res)=>{
         date_created: new Date(row.created_at).toISOString().split('T')[0]
        
     }))     
-     console.log(processedData);
+    //  console.log(processedData);
     
     res.render("inProgressRequests", {processedData,currentYear:getYear()})      
     } 
@@ -226,7 +226,7 @@ export const completedRequests = async(req, res)=>{
         date_created: new Date(row.created_at).toISOString().split('T')[0]
        
     }))     
-     console.log(processedData);
+    //  console.log(processedData);
     
     res.render("completedRequests", {processedData,currentYear:getYear()})      
     } 
@@ -251,7 +251,7 @@ export const renderTestimonials = async(req, res)=>{
         date_created: new Date(row.created_at).toISOString().split('T')[0]
        
     }))     
-     console.log(processedData);
+    //  console.log(processedData);
     
     res.render("edit_testimonials", {processedData,currentYear:getYear()})      
     } 
