@@ -1,0 +1,90 @@
+<%-include('__header')%>
+<div class="container-fluid">
+    <%-include('__logoAndNavAbout')%>
+<div class="breadcrumbHeading">
+    <h2 class="crumbHeading d-flex justify-content-center">About</h2>
+    <nav aria-label="breadcrumb" class="d-flex justify justify-content-center">
+    <ol class="breadcrumb  bg-body-success rounded-3">
+        <li class="breadcrumb-item">
+        <a  href="/"class="link-body-emphasis" >
+            Home
+        </a>
+        </li>
+        <li class="breadcrumb-item">
+        <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">About</a>
+        </li>
+    </ol>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <h1 class="testimonialHeader">About NSR Pro Construction</h1>
+    <div class="card card-custom mx-auto">
+        <div class="card-body">
+            <p class="about-text">
+                At NSR Pro Construction, our mission is to deliver top-quality construction, building, and maintenance services 
+                with a commitment to affordability and excellence. We strive to provide industry-leading solutions that are both 
+                cost-effective and reliable. Our dedicated team ensures that every project, whether it's a new construction, 
+                renovation, or routine maintenance, meets the highest standards of quality.
+            </p>
+            <p class="about-text">
+                By focusing on ongoing service excellence and customer satisfaction, 
+                we aim to build lasting relationships with our clients and support their needs with precision and care. 
+                With NSR Pro Construction, you can trust that your project will be handled with professionalism and expertise, 
+                at a rate that respects your budget.
+            </p>
+        </div>
+    </div>
+</div>
+     <div class="container mt-5">
+        <h2 class="testimonialHeader">Our Services</h2>
+        <div class="accordion" id="servicesAccordion">
+            <% const services = { 
+                constructionServices: "Construction Services", 
+                electricalServices: "Electrical Services", 
+                paintingServices: "Painting Services", 
+                plumbingServices: "Plumbing Services", 
+                renovationAndMaintenanceServices: "Renovation & Maintenance Services", 
+                roofingAndWaterproofingServices: "Roofing & Waterproofing Services", 
+                solarServices: "Solar Services"
+            }; %>
+            <% for(let key in services) { %>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading<%= key %>">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= key %>" aria-expanded="true" aria-controls="collapse<%= key %>">
+                            <%= services[key] %>
+                        </button>
+                    </h2>
+                    <div id="collapse<%= key %>" class="accordion-collapse collapse" aria-labelledby="heading<%= key %>" data-bs-parent="#servicesAccordion">
+                        <div class="accordion-body">
+                            <ul class="aboutList">
+                                <% allServices[key].forEach(service => { %>
+                                    <li><%= service.name %></li>
+                                   
+                                <% }); %>
+                            </ul>
+                            <% let serviceUrl = services[key].replace(/Services?/i,'').trim().replace(/\s+/g, '_').toLowerCase(); %>
+                            <a href="<%=serviceUrl %>" class="btn btn-maroon">Get my Quote</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+     </div>  
+   
+    
+   
+    <div class="nhbrc text-center">
+        <p ><h2 class="testimonialHeader">We are proud to be registered with the NHBRC.</h2></p>
+        <div class="d-flex justify-content-center">
+            <img src="images/nhbrc_logo.jpg" alt="NHBRC Registered" class="img-fluid mb-4 ">
+        </div>
+        
+    </div>
+    
+</div>
+
+
+
+<%-include('__footer')%>
+</div>
