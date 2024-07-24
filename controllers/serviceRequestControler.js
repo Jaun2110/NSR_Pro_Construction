@@ -19,7 +19,7 @@ const testimonials = data.map(item => {
     
 })
 // console.log(testimonials);
-res.render("homepage", {testimonials,currentYear: getYear()})
+res.render("homePage", {testimonials,currentYear: getYear()})
 
 }catch(error){
 console.log("Could not fetch testimonials from database", error.message);
