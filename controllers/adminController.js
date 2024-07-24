@@ -251,7 +251,7 @@ export const renderTestimonials = async(req, res)=>{
         date_created: new Date(row.created_at).toISOString().split('T')[0]
        
     }))     
-    //  console.log(processedData);
+     console.log(processedData);
     
     res.render("edit_testimonials", {processedData,currentYear:getYear()})      
     } 
