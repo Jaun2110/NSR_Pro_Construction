@@ -123,7 +123,7 @@ export const updateRequest = async(req, res) =>{
         
         if (error) throw error;
         
-        res.status(200).send({ message: 'Row updated successfully', data });
+        res.redirect("/admin/admin_home")
     } catch (error) {
         res.status(500).send({ message: 'Error updating row', error });
     }
@@ -162,7 +162,7 @@ async function delRequest(id,res){
         const {data, error} = await supabase.from("service_requests")
         .delete().eq('id',id)
         if (error) {throw error}
-
+        res.redirect("/admin/admin_home")
         console.log('Row delete successfull');
     } catch (error) {
         console.log('Error deleting record from service_requests table');
@@ -251,7 +251,7 @@ export const renderTestimonials = async(req, res)=>{
         date_created: new Date(row.created_at).toISOString().split('T')[0]
        
     }))     
-     console.log(processedData);
+    //  console.log(processedData);
     
     res.render("edit_testimonials", {processedData,currentYear:getYear()})      
     } 
@@ -259,6 +259,24 @@ export const renderTestimonials = async(req, res)=>{
         console.log("error fetching requests from table",error.message);
     }
 }
+// insert new testimonial
+
+export const insertTestimonial = async(req, res)=>{
+    // res.send("in controller insert testimonial")
+    const {heading, content} = req.body
+    // inset into testimonial table
+    try{
+        const {data, error} = await supabase.from("testimonials")
+        .insert({heading: heading,
+            content: content
+        })
+        if (error) throw error
+        res.redirect("/admin/testimonials")
+    }catch(error){
+        console.log("Error adding record to table", error.message);
+    }
+}
+
 //  save updated testimonial
 export const updateTestimonial = async(req, res) =>{
     const { id, heading, content} = req.body;
@@ -269,8 +287,8 @@ export const updateTestimonial = async(req, res) =>{
             .eq('id', id);
         
         if (error) throw error;
-        
-        res.status(200).send({ message: 'Row updated successfully', data });
+        // on success, redirect to testimonial page
+        res.redirect("/admin/testimonials")
     } catch (error) {
         res.status(500).send({ message: 'Error updating row', error });
     }
@@ -282,9 +300,11 @@ export const deleteTestimonial= async(req, res)=>{
         const {data, error} = await supabase.from("testimonials")
         .delete().eq('id',id)
         if (error) {throw error}
+        res.redirect("/admin/testimonials")
 
         console.log('Row delete successfull');
     } catch (error) {
         console.log('Error deleting record from testimonials table');
     }
 }
+

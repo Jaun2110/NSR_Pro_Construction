@@ -39,6 +39,41 @@
     </tbody>
 </table>
  </div>
+ <button class="btn btn-success mx-2 my-2" data-bs-toggle="modal" data-bs-target="#newTestimonialModal">
+  New Entry</button>
+<!-- modal for new entry -->
+<!-- Modal -->
+<div class="modal fade" id="newTestimonialModal" tabindex="-1" aria-labelledby="newTestimonialModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title  d-flex justify-content-center" id="newTestimonialModalTitle">Add New Testimonial</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- form goes here -->
+        <form action="/admin/insert-testimonial" method="post">
+          <div class="row">
+            <div class="col-12" >
+              <label class="mb-2 mt-2" for="heading">Heading:</label>
+              <input class="form-control" type="text" id="heading" name="heading">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label class="mb-2 mt-2" for="content">Content:</label>
+              <textarea class="form-control" name="content" id="content" maxlength="100" ></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success mt-2 my-2">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 </div>
      
 

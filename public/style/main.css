@@ -297,3 +297,8 @@ p.card-text.carousal{
 .aboutList li{
     margin-bottom: 0.5 rem;
 }
+
+.projectGallery{
+    height: 450px;
+    width: 100%;
+}

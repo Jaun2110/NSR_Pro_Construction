@@ -165,27 +165,25 @@
 <div>
     <!-- Testimonial section -->
      <hr class="gradient-hr">
-     <h2 class="testimonialHeader d-flex justify-content-center "> Testimonials</h2>
+     <h2 class="testimonialHeader d-flex justify-content-center "> Completed Projects</h2>
      <div class="hr-container d-flex justify-content-center">
         <hr class="gradient-hr-testimonial">
      </div>
      
 </div>
 <!-- carousal -->
-<div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+<div id="demo" class="carousel slide mb-2 py-2" data-bs-ride="carousel" data-bs-interval="3000">
 
   
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <!-- loop through items in db and display each item -->
-        <% for (let i = 0; i < testimonials.length; i++) { %>
+        <% for (let i = 0; i < carousalData.length; i++) { %>
             <div class="carousel-item mt-3 <%= i === 0 ? 'active' : '' %>">
                 <div class="carousalcontainer">
                     <div class="card-body carousal">
-                        <h3 class="item-heading"><%= testimonials[i].heading %></h3>
-                        <p class="card-text carousal mb-3">
-                            <%= testimonials[i].content %>
-                        </p>
+                        <h3 class="item-heading"><%= carousalData[i].heading %></h3>
+                        <img class="projectGallery" src="<%=carousalData[i].url%>" alt="">
                     </div>
                 </div>   
             </div>

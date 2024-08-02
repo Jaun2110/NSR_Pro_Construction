@@ -1,7 +1,7 @@
 import express, { Router } from "express"
 import { login, renderAdminHome, renderLogin,renderAddUser,addUser,updateRequest,deleteRequest,
     pendingRequests,inProgressRequests,completedRequests, addRequest,renderTestimonials, 
-    updateTestimonial,deleteTestimonial} from "../controllers/adminController.js"
+    updateTestimonial,deleteTestimonial,insertTestimonial} from "../controllers/adminController.js"
 
 // setup router
 const router = express.Router()
@@ -18,7 +18,9 @@ router.get("/in_progress",inProgressRequests )
 router.get("/completed",completedRequests )
 router.get("/newRequest",addRequest)
 router.get("/testimonials",renderTestimonials)
+// router.get("/projects", renderProjectCarousal)
 router.post("/update-testimonial",updateTestimonial)
 router.post("/delete-testimonial",deleteTestimonial)
+router.post("/insert-testimonial", insertTestimonial)
 
 export default router

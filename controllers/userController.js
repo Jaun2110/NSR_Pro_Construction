@@ -42,8 +42,6 @@ export const getVideos = async(req,res)=>
         res.status(500).send('Error fetching videos');
       }    
     }
-
-
-    // fetch testimonials
+// fetch testimonials
 
     

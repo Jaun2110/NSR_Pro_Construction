@@ -4,27 +4,51 @@ import { getYear } from "../utils/dateUtils.js";
 import { name } from "ejs";
 
 export const renderHomePage = async(req, res) =>{
-// testimonial fetch from db
-try
-{
-const {data, error} = await supabase
-.from("testimonials").select("heading, content")
 
-// console.log(data);
-const testimonials = data.map(item => {
-    return {
-        heading: item.heading,
-        content: item.content,
+    try {
+        const {data, error} = await supabase.from('project_carousal')
+        .select('*')
+        console.log(data);
+        if (error){throw error,error.message}
+        const carousalData = data.map(image =>{
+            return{
+                heading: image.heading,
+                url: image.image_url
+                
+            }
+            // filter out null values
+        }).filter(image=> image!==null)
+        // console.log(carousalData)
+        res.render('homePage',{carousalData,currentYear:getYear()})
+        
+    } catch (error) {
+        console.log("Error feching images from database",error.message);
+        
     }
-    
-})
-// console.log(testimonials);
-res.render("homePage", {testimonials,currentYear: getYear()})
 
-}catch(error){
-console.log("Could not fetch testimonials from database", error.message);
-}   
-}
+
+
+    // testimonial fetch from db
+// try
+// {
+// const {data, error} = await supabase
+// .from("testimonials").select("heading, content")
+
+// // console.log(data);
+// const testimonials = data.map(item => {
+//     return {
+//         heading: item.heading,
+//         content: item.content,
+//     }
+    
+// })
+// // console.log(testimonials);
+// res.render("homePage", {testimonials,currentYear: getYear()})
+
+// }catch(error){
+// console.log("Could not fetch testimonials from database", error.message);
+// }   
+ }
 export const renderAboutPage = (req, res, service) =>{
     const allServices = {
         constructionServices: [
