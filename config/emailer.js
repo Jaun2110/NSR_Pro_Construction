@@ -2,8 +2,6 @@ import env from "dotenv"
 import nodemailer from "nodemailer"
 env.config()
 
-// console.log(process.env.EMAIL_PASSWORD);
-
 // Create a transporter using Gmail SMTP
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -13,16 +11,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-
-
-// const transporter = nodemailer.createTransport({
-//     host: process.env.ETHEREAL_HOST,
-//     port: process.env.ETHERIAL_PORT,
-//     auth:{
-//         user:process.env.ETHEREAL_USER,
-//         pass:process.env.ETHERIAL_PASSWORD
-//     }
-// })
 
 export default transporter
 
