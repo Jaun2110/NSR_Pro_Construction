@@ -22,7 +22,7 @@ export const getVideos = async(req,res)=>
                 .storage
                 .from('tetimonial videos')
                 .getPublicUrl(video.name)
-                console.log(publicUrl);
+                // console.log(publicUrl);
 
                 // if(urlError){
                 //     console.error("Error generating public URL",error.message)

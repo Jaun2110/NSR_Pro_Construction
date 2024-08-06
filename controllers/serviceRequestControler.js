@@ -8,7 +8,7 @@ export const renderHomePage = async(req, res) =>{
     try {
         const {data, error} = await supabase.from('project_carousal')
         .select('*')
-        console.log(data);
+        // console.log(data);
         if (error){throw error,error.message}
         const carousalData = data.map(image =>{
             return{
@@ -19,36 +19,35 @@ export const renderHomePage = async(req, res) =>{
             // filter out null values
         }).filter(image=> image!==null)
         // console.log(carousalData)
-        res.render('homePage',{carousalData,currentYear:getYear()})
+
+        const testimonials = await fetchTestimonials()
+        res.render('homePage',{testimonials,carousalData,currentYear:getYear()})
         
     } catch (error) {
         console.log("Error feching images from database",error.message);
         
     }
-
-
-
-    // testimonial fetch from db
-// try
-// {
-// const {data, error} = await supabase
-// .from("testimonials").select("heading, content")
-
-// // console.log(data);
-// const testimonials = data.map(item => {
-//     return {
-//         heading: item.heading,
-//         content: item.content,
-//     }
-    
-// })
-// // console.log(testimonials);
-// res.render("homePage", {testimonials,currentYear: getYear()})
-
-// }catch(error){
-// console.log("Could not fetch testimonials from database", error.message);
-// }   
  }
+ async function fetchTestimonials(){
+    // testimonial fetch from db
+ try
+ {
+ const {data, error} = await supabase
+ .from("testimonials").select("heading, content")
+ 
+ if (error) {
+    throw new Error(error.message);
+}
+ return data.map(item =>({
+    heading: item.heading,
+    content: item.content,
+}) )
+ 
+ }catch(error){
+ console.log("Could not fetch testimonials from database", error.message);
+ }   
+ }
+ 
 export const renderAboutPage = (req, res, service) =>{
     const allServices = {
         constructionServices: [
@@ -211,7 +210,7 @@ const solarServices=[
 
     const reqServices = allServicesArray.filter(service => service.value && service.value.trim() !== "").map(service => service.name).join(", ");
     
-    console.log(reqServices);
+    // console.log(reqServices);
     const { data, error } = await supabase.from('service_requests').insert({
         first_name: firstname,
         last_name: lastname,

@@ -96,7 +96,7 @@ export const addUser = async(req, res) =>{
  
  //    hash password
  bcrypt.hash(plainTextPassword,saltRounds,async(err,hash)=>{
-     console.log(hash)
+    //  console.log(hash)
      if (err){
          console.log("error hashing password",err);
      }
@@ -344,7 +344,7 @@ export const addProjectImage = async(req, res)=>{
              imageurl: publicUrl.data.publicUrl
             }]
         )
-        console.log(publicUrl.data.publicUrl)
+        // console.log(publicUrl.data.publicUrl)
         if (insertError) {
             console.log("Database insert error:", insertError.message)
             throw insertError
