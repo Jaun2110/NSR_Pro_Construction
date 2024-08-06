@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs"
 import supabase from "../config/supabaseClient.js"
 import {getYear} from "../utils/dateUtils.js"
 
-// datatable imports
+
 
 // set saltRounds
 const saltRounds =10
@@ -308,3 +308,115 @@ export const deleteTestimonial= async(req, res)=>{
     }
 }
 
+export const renderCompletedProjects= async(req, res)=>{
+
+    const {data, error} = await supabase.from("project_carousal")
+    .select("id,heading,imageurl")
+
+    res.render("edit_completed_projects",{data,currentYear: getYear()})
+
+}
+
+export const addProjectImage = async(req, res)=>{
+    const{ heading} = req.body
+    const file = req.file
+    try
+    {
+    //    insert file into bucket
+        const {data, error} = await supabase.storage.from("project images")
+        .upload(file.originalname,file.buffer,{contentType: file.mimetype,})
+        if (error) {
+            console.log("Bucket upload error:", error.message)
+            throw error
+          }
+          console.log("image upload success");
+    
+        
+        
+        // genrate public url for img
+        const publicUrl =  supabase.storage.from("project images")
+        .getPublicUrl(file.originalname)
+        
+        // insert record into project_carousal table
+        const {data:projectData, error: insertError} =await supabase.from("project_carousal")
+        .insert([
+            {heading: heading,
+             imageurl: publicUrl.data.publicUrl
+            }]
+        )
+        console.log(publicUrl.data.publicUrl)
+        if (insertError) {
+            console.log("Database insert error:", insertError.message)
+            throw insertError
+          }
+          console.log("Row insert complete")
+        res.redirect("/admin/completed_projects")
+    }
+    catch(error)
+    {
+        console.log("Error insering image", error.message);
+        res.status(500).send("error inserting image")
+    }
+}
+
+
+export const updateProject = async(req, res)=>{
+const {id , heading, imageurl} =  req.body
+
+try{
+const {data, error} = await supabase.from("project_carousal")
+.update({heading})
+.eq('id', id)
+if(error){throw error}
+
+res.redirect("/admin/completed_projects")
+}catch(error){
+    res.status(500).send("Error updating row")
+}
+
+
+}
+
+export const deleteProject = async(req, res)=>{
+    const {id,header,imageurl} = req.body
+    try {
+        const {data, error} = await supabase.from("project_carousal")
+        .delete().eq('id',id)
+        if (error) {throw error}
+
+        console.log('Row delete successfull');
+        deleteImgFromBucket(imageurl,res)
+        
+    } catch (error) {
+        console.log('Error deleting record from testimonials table');
+    }
+
+}
+
+async function deleteImgFromBucket(imageurl,res){
+try {
+    const url = new URL(imageurl)
+    // split the url into into its parts after each /
+    const pathParts = url.pathname.split('/')
+    // console.log(pathParts)
+    // get the bucketname
+    const bucketName = pathParts[5]
+    // console.log(`BucketName: ${bucketName}`);
+    
+    // get the filepath
+    const filePath = pathParts.slice(6).join('/')
+    // console.log(`filepath :${filePath}`);
+    
+
+    const {data, error} = await supabase.storage.from(bucketName)
+    .remove([filePath])
+    if (error){throw error}
+    console.log('bucket file delete successful');
+    res.redirect("/admin/completed_projects")
+    
+    
+
+} catch (error) {
+    res.status(500).send("error deleting file",error.message)
+}
+}

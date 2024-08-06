@@ -13,7 +13,7 @@ export const renderHomePage = async(req, res) =>{
         const carousalData = data.map(image =>{
             return{
                 heading: image.heading,
-                url: image.image_url
+                url: image.imageurl
                 
             }
             // filter out null values

@@ -1,0 +1,79 @@
+<%-include("__header")%>
+<h1 class="d-flex justify-content-center">NSR Admin Portal</h1>
+<%-include("__logoAndNavAdminCompletedProjects")%>
+<h1 class="testimonialHeader d-flex justify-content-center py-3 ">Completed Projects:</h1>
+<div class="hr-container d-flex justify-content-center">
+    <hr class="gradient-hr-admin-heading">
+ </div>
+
+<!-- display records in datagrid -->
+<div class="container-fluid mt-2">
+ <div class="table-responsive">
+    <!-- <button class="btn-create">Create</button> -->
+  <table id="completedProjects" class="table table-bordered table-striped nowrap">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Heading</th>
+            <th>Image Url</th>
+            <th>Actions</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(function(row) { %>
+        <tr>
+            <td><%= row.id%></td>
+            <td contenteditable="true"><%= row.heading %></td>
+            <td ><%= row.imageurl %></td>
+            
+            
+            <td>
+              <button class="btn btn-success save-project" data-id="<%= row.id %>"><i class="fa-solid fa-floppy-disk" style="color: #e6e6e6;"></i></button>
+              <button class="btn btn-danger delete-project" data-id="<%= row.id %>"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+            </td>
+          
+          </tr>
+    <% }) %>
+    </tbody>
+</table>
+ </div>
+ <button class="btn btn-success mx-2 my-2" data-bs-toggle="modal" data-bs-target="#newProjectUploadModal">
+  New Entry</button>
+<!-- modal for new entry -->
+<!-- Modal -->
+<div class="modal fade" id="newProjectUploadModal" tabindex="-1" aria-labelledby="newProjectUploadModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title  d-flex justify-content-center" id="newProjectUploadModalTitle">Add New Project</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- form goes here -->
+        <form action="/admin/insert-completed-project" method="post" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-12" >
+              <label class="mb-2 mt-2" for="heading">Heading:</label>
+              <input class="form-control" type="text" id="heading" name="heading">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label class="mb-2 mt-2" for="content">Upload Image:</label>
+              <input type="file" id="myFile" name="filename">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success mt-2 my-2">Save</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+</div>
+     
+
+<%-include("__footer")%>
