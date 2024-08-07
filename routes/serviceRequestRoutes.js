@@ -10,6 +10,7 @@ router.get("/construction", (req,res )=> renderServicePages(req,res,"constructio
 router.get("/renovation_&_maintenance", (req,res )=> renderServicePages(req,res,"renovations_&_maintenance"))
 router.get("/painting", (req,res )=> renderServicePages(req,res,"painting"))
 router.get("/plumbing", (req,res )=> renderServicePages(req,res,"plumbing"))
+// router.get("/property_developments", (req,res )=> renderServicePages(req,res,"painting"))
 router.get("/solar", (req,res )=> renderServicePages(req,res,"solar"))
 router.get("/roofing_&_waterproofing", (req, res)=> renderServicePages(req, res, "roofing_&_waterproofing"))
 router.post("/newServiceRequest",newServiceRequest)
