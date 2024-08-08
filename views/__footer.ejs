@@ -1,4 +1,5 @@
         <script>
+        
             // function palaced outside of document.ready to ensure global scope
             function getCount()
                         {
@@ -9,7 +10,8 @@
                         }
             $(document).ready(function()
             {       
-                      
+                    
+
                         // custom validation
                         (() => {
                         'use strict'
@@ -146,7 +148,7 @@
         { width: "10%", targets: 8 }, // Requests column
         { width: "8%", targets: 9 },  // Date Created column
         { width: "8%", targets: 10 },  // Status column
-        { width: "10%", targets: 11 } // Actions column
+        { width: "12%", targets: 11 } // Actions column
     ]
    
     
@@ -186,6 +188,35 @@
                 }
             });
         });
+
+        // view services button click handler
+        $('#serviceRequests tbody').on('click', '.view-services', function() {
+            // get the modal
+            const servicesModal = $('#servicesModal')
+            // the paragraph
+            const pServicesRequested = $('#pServicesRequested')
+            // the button
+            const button = $(this)
+            const rowId = button.data('id')
+
+            // find the row data based on the row id
+            const rowData = processedData.find(row =>row.id == rowId)
+
+            if (rowData){
+                if (rowData.requested_services){
+                // populate modal content
+                pServicesRequested.html(rowData.requested_services.split(',').join('<br>'))
+                }else{
+                      // Handle cases where requestedServices is undefined
+                    pServicesRequested.html('No services requested.');
+                }
+                
+                // show the model
+                servicesModal.show()
+
+            }
+            
+        })
 
         // Delete button click handler
         $('#serviceRequests tbody').on('click', '.delete-row', function() {

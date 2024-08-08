@@ -128,7 +128,7 @@ export const newServiceRequest = async(req,res)=>{
         handymanServices,carpentryServices,pavingServices,roofRepairs,waterproofing,deckRepairs,tilingServices,
         roofWaterproofing,
         solarPower,solarPumps,solarWaterHeating
-        ,notes
+        ,notes,requested_services
      } = req.body;
 
     //  create an array for each service category
@@ -220,7 +220,8 @@ const solarServices=[
         suburb,
         city,
         requests: notes,
-        status:"pending"
+        status:"pending",
+        requested_services:reqServices
     });
     
     if (error) {

@@ -1,6 +1,16 @@
 <%-include("__header")%>
+
+<script>
+    // Use JSON.stringify to convert the data to a JSON string
+    var processedData = <%- JSON.stringify(processedData).replace(/<\/script>/g, '<\\/script>').replace(/<!--/g, '<\\!--') %>;
+
+    // Log the data to the console for debugging
+    // console.log('Processed Data:', processedData)
+</script>
+
 <h1 class="d-flex justify-content-center">NSR Admin Portal</h1>
 <%-include("__logoAndNavAdminHome")%>
+
 <h1 class="testimonialHeader d-flex justify-content-center py-3 ">All service requests:</h1>
 <div class="hr-container d-flex justify-content-center">
     <hr class="gradient-hr-admin-heading">
@@ -49,6 +59,7 @@
                 </td>
                 <td>
                   <button class="btn btn-success save-row" data-id="<%= row.id %>"><i class="fa-solid fa-floppy-disk" style="color: #e6e6e6;"></i></button>
+                  <button class="btn btn-primary view-services" data-bs-toggle="modal" data-bs-target="#servicesModal" data-id="<%= row.id %>"><i class="fa-solid fa-wrench" style="color: #e6e6e6;"></i></button>
                   <button class="btn btn-danger delete-row" data-id="<%= row.id %>"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
                 </td>
               
@@ -57,6 +68,40 @@
     </tbody>
 </table>
  </div>
+ <!-- modal to display services -->
+<!-- Modal -->
+<div class="modal fade" id="servicesModal" tabindex="-1" aria-labelledby="servicesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h1 class="modal-title  d-flex justify-content-center" id="servicesModalTitle">View Requested Services</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> -->
+        <div class="modal-body">
+          <!-- form goes here -->
+          <form action="#" method="post">
+            <div class="row">
+              <div class="col-12" >
+                <h3 class="mb-2 mt-2" for="heading">Services Requested:</h3>
+                <p class="form-control" type="text" id="pServicesRequested">
+                   
+                </p>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-12">
+                <label class="mb-2 mt-2" for="content">Content:</label>
+                <textarea class="form-control" name="content" id="content" maxlength="100" ></textarea>
+              </div>
+            </div> -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  
+          </form>
+        </div>
+       
+      </div>
+    </div>
+  </div>
 </div>
      
 
