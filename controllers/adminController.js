@@ -21,7 +21,7 @@ export const renderAdminHome = async(req, res) =>{
             date_created: new Date(row.created_at).toISOString().split('T')[0]
            
         }))     
-         console.log(processedData);
+        //  console.log(processedData);
         // console.log(processedData[0].date_created); 
 
         // convert object to string before sending to view
