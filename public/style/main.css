@@ -42,11 +42,12 @@ a.nav-link:hover{
 .navbar-nav .nav-item .nav-link{
     color:rgb(255, 255, 255) ;
 }
-.pet-images img{
+.service-images img{
    
     height: 250px;
     width: 250px;
-    border-radius: 50%;
+    border-radius: 10%;
+    margin: 5%;
 }
 .card-body.title-section{
     display: flex;
