@@ -19,15 +19,15 @@ ignorefile  = ".dockerignore"
   processes = ['app']
 
   [env]
-  EMAIL_USER = 'jaunn21@gmail.com'
-  ETHEREAL_HOST = 'smtp.ethereal.email'
-  ETHEREAL_PASSWORD = 'vt8zVYr3j4aCAMWVdZ'
-  ETHEREAL_PORT = '587'
-  ETHEREAL_USER = 'ramona.satterfield@ethereal.email'
-  NODEMAILER_PASSWORD = 'gztb liau mryu oujq'
-  SESSION_SECRET = 'TOPSECRETWORD'
-  SUPABASE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV1cnhycGxscXZlYXN1dm54dW5zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU4NDQ3NjgsImV4cCI6MjAzMTQyMDc2OH0.j-rcZtRWkEZozE5OouYyoaoIGYCD_m7xyyky0g4Lz_c'
-  SUPABASE_URL = 'https://uurxrpllqveasuvnxuns.supabase.co'
+  SUPABASE_URL='https://uurxrpllqveasuvnxuns.supabase.co'
+SUPABASE_API_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV1cnhycGxscXZlYXN1dm54dW5zIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxNTg0NDc2OCwiZXhwIjoyMDMxNDIwNzY4fQ.RW8OqfGmlaBxxh0qysjG1GIxMuEl_znWq9R7FAxcDCI'
+SESSION_SECRET ="TOPSECRETWORD"
+# EMAIL_USER='jaunn21@gmail.com'
+# NODEMAILER_PASSWORD='gztb liau mryu oujq'
+EMAIL_USER='info@nsrpro.co.za'
+EMAIL_PASSWORD='Provider@123!'
+EXCHANGE_HOST='smtp.office365.com'  # Commonly used for Office 365 and Exchange Online
+EXCHANGE_PORT='587'  # Standard port for SMTP with TLS
 
 
 
