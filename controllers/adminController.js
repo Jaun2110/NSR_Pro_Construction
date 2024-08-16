@@ -165,7 +165,7 @@ async function delRequest(id,res){
         res.redirect("/admin/admin_home")
         console.log('Row delete successfull');
     } catch (error) {
-        console.log('Error deleting record from service_requests table');
+        console.log('Error deleting record from service_requests table',error.message);
     }
 } 
 export const pendingRequests = async(rew, res)=>{
