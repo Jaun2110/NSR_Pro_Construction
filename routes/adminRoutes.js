@@ -2,7 +2,7 @@ import express, { Router } from "express"
 // import multer for file upload
 import multer from "multer"
 import { login, renderAdminHome, renderLogin,renderAddUser,addUser,updateRequest,deleteRequest,
-    pendingRequests,inProgressRequests,completedRequests, addRequest,renderTestimonials, 
+    pendingRequests,inProgressRequests,completedRequests,invoicedRequests, addRequest,renderTestimonials, 
     updateTestimonial,deleteTestimonial,insertTestimonial,renderCompletedProjects,
     addProjectImage,updateProject,deleteProject} 
     from "../controllers/adminController.js"
@@ -22,6 +22,7 @@ router.post("/delete-service-request", deleteRequest)
 router.get("/pending_requests",pendingRequests )
 router.get("/in_progress",inProgressRequests )
 router.get("/completed",completedRequests )
+router.get("/invoiced",invoicedRequests)
 router.get("/newRequest",addRequest)
 router.get("/testimonials",renderTestimonials)
 router.get("/completed_projects", renderCompletedProjects)

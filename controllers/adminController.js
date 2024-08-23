@@ -213,7 +213,7 @@ export const inProgressRequests = async(rew, res)=>{
     }
 }
 export const completedRequests = async(req, res)=>{
-    // retrieve pending reqquests from db
+    // retrieve completed reqquests from db
     try {
         const {data, error} = await supabase.from('service_requests')
     .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status,requested_services ,created_at")
@@ -234,12 +234,34 @@ export const completedRequests = async(req, res)=>{
         console.log("error fetching requests from table",error.message);
     }
 }
+export const invoicedRequests = async(req, res)=>{
+    // retrieve completed reqquests from db
+    try {
+        const {data, error} = await supabase.from('service_requests')
+    .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status,requested_services ,created_at")
+    .eq('status','invoiced')
+    .order("created_at", {ascending:false})
+    
+    // convert the time stamp to a date
+    let processedData = data.map(row =>({
+        ...row,
+        date_created: new Date(row.created_at).toISOString().split('T')[0]
+       
+    }))     
+    //  console.log(processedData);
+    
+    res.render("invoicedRequests", {processedData,currentYear:getYear()})      
+    } 
+    catch (error) {
+        console.log("error fetching requests from table",error.message);
+    }
+}
 export const addRequest = (req, res)=>{
     res.render("newRequest",{currentYear:getYear()})
 }
 
 export const renderTestimonials = async(req, res)=>{
-    // retrieve pending reqquests from db
+    // retrieve testimoinials from db
     try {
         const {data, error} = await supabase.from('testimonials')
     .select("id, heading, content, created_at")

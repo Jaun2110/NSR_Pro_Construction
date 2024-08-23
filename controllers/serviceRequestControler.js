@@ -108,7 +108,25 @@ export const renderAboutPage = (req, res, service) =>{
             {name: 'Solar Power', value: 'Solar Power'},
             {name: 'Solar Pumps', value: 'Solar Pumps'},
             {name: 'Solar Water Heating', value: 'Solar Water Heating'}
+        ],
+        realEstateServices :[
+            {name:'Property Sales', value: 'Property Sales' || ""},
+            {name:'Property Rentals', value: 'Property Rentals' || ""},
+            {name:'Property Evaluations', value: 'Property Evaluations' || ""},
+        ],
+        accountingServices:[
+            {name:'Compilation Of Financial Statements SME And IFRS', value: 'Compilation Of Financial Statements SME And IFRS' || ""},
+            {name:'Monthly Processing Of Financial Records', value: 'Monthly Processing Of Financial Records' || ""},
+            {name:'Consulting', value: 'Consulting' || ""},
+            {name:'Tax', value: 'Tax' || ""},
+            {name:'Payroll Services', value: 'Payroll Services' || ""},
+            {name:'Cipc Company Registrations', value: 'Cipc Company Registrations' || ""},
+            {name:'Sars Compliance', value: 'Sars Compliance' || ""},
+            {name:'Cloud Accounting Services', value: 'Cloud Accounting Services' || ""},
+            {name:'Tax Practitioner Services', value: 'Tax Practitioner Services' || ""},
         ]
+        
+
     };
     
     res.render("aboutpage", {currentYear: getYear(),allServices})
@@ -127,7 +145,8 @@ export const newServiceRequest = async(req,res)=>{
         bathroomRenovation,stormWaterDrainage,blockageRemovals,hotAndColdWater,rainWaterTanks,swimmingPoolPlumbing,sewerageServices,solarGeysers,submersibleAndHeatPumps,
         handymanServices,carpentryServices,pavingServices,roofRepairs,waterproofing,deckRepairs,tilingServices,
         roofWaterproofing,
-        solarPower,solarPumps,solarWaterHeating
+        solarPower,solarPumps,solarWaterHeating,propertySales,propertyRentals,properytEvaluations,
+        compilationOfFinancialStatementsSmeAndIfrs,monthlyProcessingOfFinancialRecords,consulting,tax,payrollServices,cipcCompanyRegistrations,sarsCompliance,cloudAccountingServices,taxPractitionerServices
         ,notes,requested_services
      } = req.body;
 
@@ -193,6 +212,22 @@ const solarServices=[
     {name:'Solar Pumps', value : solarPumps  || ""},
     {name:'Solar Water Heating', value : solarWaterHeating  || ""},
 ]
+const realEstateServices = [
+    {name:'Property Sales', value: propertySales || ""},
+    {name:'Property Rentals', value: propertyRentals || ""},
+    {name:'Property Evaluations', value: properytEvaluations || ""},
+]
+const accountingServices=[
+    {name:'Compilation Of Financial Statements SME And IFRS', value: compilationOfFinancialStatementsSmeAndIfrs || ""},
+    {name:'Monthly Processing Of Financial Records', value: monthlyProcessingOfFinancialRecords || ""},
+    {name:'Consulting', value: consulting || ""},
+    {name:'Tax', value: tax || ""},
+    {name:'Payroll Services', value: payrollServices || ""},
+    {name:'Cipc Company Registrations', value: cipcCompanyRegistrations || ""},
+    {name:'Sars Compliance', value: sarsCompliance || ""},
+    {name:'Cloud Accounting Services', value: cloudAccountingServices || ""},
+    {name:'Tax Practitioner Services', value: taxPractitionerServices || ""},
+]
 
 
     const allServicesArray =
@@ -203,7 +238,9 @@ const solarServices=[
         ...plumbingServices,
        ...renovationAndMaintenanceServices,
         ...roofingAndWaterproofingServices,
-        ...solarServices
+        ...solarServices,
+        ...realEstateServices,
+        ...accountingServices
     ]
        
     ;
