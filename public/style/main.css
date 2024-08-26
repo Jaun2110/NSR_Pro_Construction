@@ -309,3 +309,20 @@ p.card-text.carousal{
     width: 100%;
 }
 
+/* div.contact-info{
+    padding: 0px;
+    margin:0px;
+} */
+/* adjust the dispay of the banner images  first five images */
+@media (max-width: 576px) {
+    .banner-images .col-2:nth-child(-n+4) {
+      display: inline-block;
+    }
+
+    /* adjust the rest */
+  
+    .banner-images .col-2:nth-child(n+5) {
+      display: inline-block;
+      margin-top: 10px; /* Add space between rows if needed */
+    }
+  }
