@@ -124,6 +124,13 @@ export const renderAboutPage = (req, res, service) =>{
             {name:'Sars Compliance', value: 'Sars Compliance' || ""},
             {name:'Cloud Accounting Services', value: 'Cloud Accounting Services' || ""},
             {name:'Tax Practitioner Services', value: 'Tax Practitioner Services' || ""},
+        ],
+        itServices:[
+            {name: 'Web Development', value: 'Web Development' || ""},
+            {name:'Antivirus Solutions', value: 'Antivirus Solutions' || "" },
+            {name: 'Internet Security Tools', value:'Internet Security Tools' || ""},
+            {name: 'Essential Software: eg: Microsoft Office', value: 'Essential Software: eg: Microsoft Office' || ""}
+            
         ]
         
 
@@ -146,6 +153,7 @@ export const newServiceRequest = async(req,res)=>{
         handymanServices,carpentryServices,pavingServices,roofRepairs,waterproofing,deckRepairs,tilingServices,
         roofWaterproofing,
         solarPower,solarPumps,solarWaterHeating,propertySales,propertyRentals,properytEvaluations,
+        webDevelopment,antivirusSolutions,internetSecurityTools,essentialSoftware,
         compilationOfFinancialStatementsSmeAndIfrs,monthlyProcessingOfFinancialRecords,consulting,tax,payrollServices,cipcCompanyRegistrations,sarsCompliance,cloudAccountingServices,taxPractitionerServices
         ,notes,requested_services
      } = req.body;
@@ -228,6 +236,12 @@ const accountingServices=[
     {name:'Cloud Accounting Services', value: cloudAccountingServices || ""},
     {name:'Tax Practitioner Services', value: taxPractitionerServices || ""},
 ]
+const itServices=[
+    {name: 'Web Development', value: webDevelopment || ""},
+            {name:'Antivirus Solutions', value: antivirusSolutions || "" },
+            {name: 'Internet Security Tools', value:internetSecurityTools || ""},
+            {name: 'Essential Software: eg: Microsoft Office', value: essentialSoftware || ""}
+]
 
 
     const allServicesArray =
@@ -240,7 +254,8 @@ const accountingServices=[
         ...roofingAndWaterproofingServices,
         ...solarServices,
         ...realEstateServices,
-        ...accountingServices
+        ...accountingServices,
+        ...itServices
     ]
        
     ;

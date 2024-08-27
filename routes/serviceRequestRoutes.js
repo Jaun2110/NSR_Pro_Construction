@@ -15,6 +15,7 @@ router.get("/solar", (req,res )=> renderServicePages(req,res,"solar"))
 router.get("/roofing_&_waterproofing", (req, res)=> renderServicePages(req, res, "roofing_&_waterproofing"))
 router.get('/real_estate',(req, res)=>renderServicePages(req,res,"realEstate"))
 router.get('/accounting',(req, res)=>renderServicePages(req,res,"accounting"))
+router.get('/it_services',(req, res)=>renderServicePages(req,res,"it_services"))
 router.post("/newServiceRequest",newServiceRequest)
 
 export default router
