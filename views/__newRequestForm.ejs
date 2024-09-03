@@ -513,9 +513,23 @@
                 <input class="form-control mb-2" type="text" id="city" name="city" placeholder="city" required>
             </div>
         </div>
+        <div class="col-md-6 col-sm-12">
+            <label class="mb-2 mt-2" for="referral">Who referred you to us?</label>
+            <select class="form-select mb-2" name="referralPerson" id="referralPerson" required onchange="showReferralBox() ">
+                <option value="">Select</option>
+                <option value="Niel Roberts">Niel Roberts</option>
+                <option value="Steph Roberts">Steph Roberts</option>
+                <option value="Jano Nothnagel">Jano Nothnagel</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="col-md-12 col-sm-12 otherReferralDiv "hidden>
+            <label class="mt-2 mb-2" for="otherReferral"> Enter the details below:</label>
+            <input class="form-control " type="text" id="otherReferral" name="otherReferral">
+        </div>
 
         <div class="col-md-12 col-sm-12">
-            <label class="mb-2" for="notes">Notes about what needs to be done:</label>
+            <label class="mt-2 mb-2" for="notes">Notes about what needs to be done:</label>
             <textarea class="form-control mb-2" name="notes" id="notes" oninput="getCount()" maxlength="300"></textarea>
             <label id="charCount">0 of 300 characters</label>
             <button type="submit" class="btn btn-maroon py-2 mb-2">

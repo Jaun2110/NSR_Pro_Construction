@@ -57,6 +57,7 @@
                 <td>
                   <button class="btn btn-success save-row" data-id="<%= row.id %>"><i class="fa-solid fa-floppy-disk" style="color: #e6e6e6;"></i></button>
                   <button class="btn btn-primary view-services" data-bs-toggle="modal" data-bs-target="#servicesModal" data-id="<%= row.id %>"><i class="fa-solid fa-wrench" style="color: #e6e6e6;"></i></button>
+                  <button class="btn btn-secondary view-referral" data-bs-toggle="modal" data-bs-target="#referralModal" data-id="<%= row.id %>"><i class="fa-solid fa-face-grin" style="color: #e6e6e6;"></i></button>
                   <button class="btn btn-danger delete-row" data-id="<%= row.id %>"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
                 </td>
               
@@ -91,6 +92,31 @@
       </div>
     </div>
   </div>
+  <!-- modal to display referral -->
+<!-- Modal -->
+<div class="modal fade" id="referralModal" tabindex="-1" aria-labelledby="referralModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <!-- form goes here -->
+        <form action="#" method="post">
+          <div class="row">
+            <div class="col-12" >
+              <h3 class="mb-2 mt-2" for="heading">Referred By:</h3>
+              <p class="form-control" type="text" id="pReferredBy">
+                 
+              </p>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 </div>
      
 

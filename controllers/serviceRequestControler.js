@@ -155,7 +155,7 @@ export const newServiceRequest = async(req,res)=>{
         solarPower,solarPumps,solarWaterHeating,propertySales,propertyRentals,properytEvaluations,
         webDevelopment,antivirusSolutions,internetSecurityTools,essentialSoftware,
         compilationOfFinancialStatementsSmeAndIfrs,monthlyProcessingOfFinancialRecords,consulting,tax,payrollServices,cipcCompanyRegistrations,sarsCompliance,cloudAccountingServices,taxPractitionerServices
-        ,notes,requested_services
+        ,referralPerson,otherReferral,notes,requested_services
      } = req.body;
 
     //  create an array for each service category
@@ -271,6 +271,7 @@ const itServices=[
         address: street,
         suburb,
         city,
+        referral_person: otherReferral || referralPerson,
         requests: notes,
         status:"pending",
         requested_services:reqServices
@@ -284,8 +285,8 @@ const itServices=[
 // send email
 // get mail for system/ email adress to send requests to
     const info = await transporter.sendMail({
-        from: '"NSR Website" <info@nsrpro.co.za>',
-        to: "info@nsrpro.co.za",
+        from: '"Test Email" <jaunn21@gmail.com>',//'"NSR Website" <info@nsrpro.co.za>',
+        to:  "jaunn21@gmail.com",//"info@nsrpro.co.za",
         subject: `New Service request from ${firstname} ${lastname}`,
         text: `${firstname} ${lastname} has just placed a service request and needs to be contacted. 
 Details:
@@ -296,6 +297,7 @@ Cell: ${phone}
 Address: ${street}
 Suburb: ${suburb}
 City: ${city}
+Referred by: ${referralPerson}
 Services Requested:
 ${reqServices}
 Notes on what needs to be done: ${notes}
@@ -309,6 +311,7 @@ Notes on what needs to be done: ${notes}
 <b>Address:</b> ${street}<br>
 <b>Suburb:</b> ${suburb}<br>
 <b>City:</b> ${city}<br>
+<b>Referred by:</b> ${otherReferral || referralPerson}<br>
 <b>Services Requested:</b><br>
 ${reqServices.split(', ').join('<br>')}<br>
 <b>Notes on what needs to be done:</b><br>

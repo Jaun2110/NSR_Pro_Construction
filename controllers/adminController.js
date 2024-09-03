@@ -12,8 +12,10 @@ export const renderAdminHome = async(req, res) =>{
 // get all service requests and display them on the homepage
         try {
             const {data, error} = await supabase.from('service_requests')
-        .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status,requested_services ,created_at")
+        .select("id, first_name, last_name, email, cell, address, suburb, city, requests,status,requested_services,referral_person ,created_at")
         .order("id", {ascending:false})
+        console.log();
+        
         
         // convert the time stamp to a date
         let processedData = data.map(row =>({
@@ -21,11 +23,7 @@ export const renderAdminHome = async(req, res) =>{
             date_created: new Date(row.created_at).toISOString().split('T')[0]
            
         }))     
-        //  console.log(processedData);
-        // console.log(processedData[0].date_created); 
-
-        // convert object to string before sending to view
-        // processedData = JSON.stringify(processedData)
+        console.log(processedData);
         res.render("admin_home", {processedData,currentYear:getYear()})      
         } 
         catch (error) {

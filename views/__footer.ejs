@@ -56,7 +56,11 @@
                             // perform form validation
                             if(this.checkValidity()){
                                 showLoader() // show loader
-
+                                debugger
+                                //when other is chosen, use the value in the textbox
+                                if ($('#referralPerson').val()=== 'Other'){
+                                    $('referralPerson').val($('otherReferral').val())
+                                }
                                 // make AJAX request to the server
                                 $.ajax({
                                     url: $(this).attr('action'),
@@ -114,6 +118,18 @@
                 }
                    
             })
+            function showReferralBox()
+            {
+                debugger
+                if( $('#referralPerson').val()=== 'Other'){
+                    $(".otherReferralDiv").removeAttr('hidden')
+                    
+                }else{
+                    $(".otherReferralDiv").attr("hidden",true)
+                    //clear value when div is hidden
+                    $('#otherReferral').val('')
+                }
+            }
             // DataTables functions and styling
            
 
@@ -215,8 +231,31 @@
                 // show the model
                 servicesModal.show()
 
-            }
-            
+            } 
+        })
+        // view referral button click handler
+        $('#serviceRequests tbody').on('click', '.view-referral', function() {
+            // get the modal
+            const referralModal = $('#referralModal')
+            // the paragraph
+            const pReferredBy = $('#pReferredBy')
+            // the button
+            const button = $(this)
+            const rowId = button.data('id')
+
+            // find the row data based on the row id
+            const rowData = processedData.find(row =>row.id == rowId)
+
+            if (rowData){
+                if (rowData.referral_person){
+                // populate modal content
+                pReferredBy.html(rowData.referral_person)
+                }
+                
+                // show the model
+                referralModal.show()
+
+            } 
         })
 
         // Delete button click handler
