@@ -23,7 +23,7 @@ export const renderAdminHome = async(req, res) =>{
             date_created: new Date(row.created_at).toISOString().split('T')[0]
            
         }))     
-        console.log(processedData);
+    
         res.render("admin_home", {processedData,currentYear:getYear()})      
         } 
         catch (error) {

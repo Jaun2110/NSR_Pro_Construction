@@ -285,8 +285,8 @@ const itServices=[
 // send email
 // get mail for system/ email adress to send requests to
     const info = await transporter.sendMail({
-        from: '"Test Email" <jaunn21@gmail.com>',//'"NSR Website" <info@nsrpro.co.za>',
-        to:  "jaunn21@gmail.com",//"info@nsrpro.co.za",
+        from: '"NSR Website" <info@nsrpro.co.za>',
+        to:  "info@nsrpro.co.za",
         subject: `New Service request from ${firstname} ${lastname}`,
         text: `${firstname} ${lastname} has just placed a service request and needs to be contacted. 
 Details:
